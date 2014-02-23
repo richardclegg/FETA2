@@ -1,0 +1,17 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>scripts/clique_test_graph.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>false</Complex>
+        <FetaOutput>test.feta</FetaOutput>
+        <FetaFormatWrite>ASCII</FetaFormatWrite>
+    </DataFile>
+    <Action>
+        <Type>Translate</Type>  
+        <Interval>1</Interval>
+        <Start>10</Start>
+    </Action>
+    <OperationModel>
+        <Cliques>true</Cliques>
+    </OperationModel>
+</FetaOptions>

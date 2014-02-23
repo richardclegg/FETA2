@@ -1,0 +1,22 @@
+FetaCLI is controlled by a single XML document
+
+use
+
+java feta.FetaCLI scripts/simple_test.xml
+
+
+<FetaOptions>
+    <DataFile>  #Options related to graph data
+        <Name>scripts/simple_test_graph.dat</Name>  #File name
+        <Format>NNT</Format>   # Format
+        <Directed>true</Directed>       #Graph is directed
+        <Complex>false</Complex>        #Multiple links A->B allowed
+    </DataFile>
+# Allowable data file formats
+# NNT -- node-id(string) node-id(string) time (epoch)    
+
+
+    <Action>  # What FETA will actually do
+        <Type>Measure</Type>
+    </Action>
+</FetaOptions>
