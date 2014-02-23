@@ -1,0 +1,18 @@
+DATA files included in this directory:
+
+enron.dat -- data derived from ENRON emails data set.
+
+Full original data at http://konect.uni-koblenz.de/networks/enron
+
+Note that some timestamps are very large or very small -- FETA2 
+config files can filter these.
+
+facebook.dat -- data derived from Facebook likes data
+
+Full original data at http://konect.uni-koblenz.de/networks/facebook-wosn-wall
+
+
+
+
+
+
