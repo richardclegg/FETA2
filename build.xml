@@ -48,11 +48,11 @@
      </javadoc>
   </target>
 
-    <target name="clean" description="Delete class files and docs dir.">
+    <target name="clean" depends="init" description="Delete class files and docs dir.">
+	<delete dir="${api}" />
         <delete>
             <fileset dir="${basedir}" includes="**/*.class"/>
-        </delete>
-        <delete dir="${api}" />
+	</delete>
     </target>
 
   <!-- ALL -->
