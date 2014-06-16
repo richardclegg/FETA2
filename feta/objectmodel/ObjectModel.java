@@ -112,6 +112,8 @@ public class ObjectModel {
     {
         int []nodes= new int[noNodes];
         int n;
+        double totProb=1.0;
+        double probUsed=0.0;
         for (int i= 0; i < noNodes; i++) {
             while(true) {
                 n= getReadiedNode(net);
@@ -127,10 +129,14 @@ public class ObjectModel {
                 }
             }
             //System.out.println(calcProbability(n,net,false)+" "+1.0/net.noNodes_);
-           /* System.out.println("Selected node "+n+
-                " probabilty "+ calcProbability(n,net,false)
-                +" nodes "+net.noNodes_+" links "+net.noLinks_);*/
+           double prob= calcProbability(n,net,false);
+           totProb*= prob*(1.0-probUsed);
+           
+           /*System.out.println("Selected node prob "+prob+" prob*used "+
+            + (prob*(1.0-probUsed)));
+           probUsed+= prob; */
         }
+        /*System.out.println("Tot prob "+totProb);*/
         return nodes;
     }
     
@@ -170,6 +176,22 @@ public class ObjectModel {
         for (ObjectModelElement ome: components_) {
             ome.calcNormalisationFrom(net,remove); 
         }
+    }
+    
+    /** Calc probability of set of nodes on list */
+    public double calcProbabilitySet(Network net, int nodes[]){
+        double prob;
+        double totProb= 1.0;
+        double probUsed= 0.0;
+        for (int n: nodes) {
+            prob= calcProbability(n, net, false);
+            /*System.out.println("Selected node prob "+prob+" prob*used "+
+            + (prob*(1.0-probUsed)));
+            totProb*= prob*(1.0 - probUsed);
+            probUsed+= prob;*/
+        }
+        //System.out.println("Tot prob "+totProb);
+        return totProb;
     }
     
     /** Calculate probability for a specific node */
