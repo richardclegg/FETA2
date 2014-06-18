@@ -33,7 +33,7 @@ public class FetaOptions {
     public static final int ACTION_GROW= 3;
     public static final int ACTION_RFILE= 4;
     public static final int ACTION_TRANSLATE= 5;
-    
+    public static final int ACTION_TEST= 6;
     
     
 
@@ -345,6 +345,8 @@ public class FetaOptions {
                 fetaAction_= ACTION_TRANSLATE;
             } else if (action.equals("Rfile")) {
                 fetaAction_= ACTION_RFILE;
+            } else if (action.equals("Test")) {
+				fetaAction_= ACTION_TEST;
             } else {
                 throw new SAXException("Unrecognised action type "+action+" in tag Type in tag Action");
             }

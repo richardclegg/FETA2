@@ -35,7 +35,7 @@ public abstract class OperationModel {
     abstract public double calcProb(Network net, FetaElement fe);
     
     /** Generate a potential FetaElement using this Operation model
-     * The contents of the objectnodes will be dummy*/
+     * The contents of the objectnodes will be dummy */
     abstract public FetaElement nextElement(Network net);
     
     

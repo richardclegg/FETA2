@@ -174,7 +174,7 @@ public class FetaNetwork {
             if (expectedNodes+5 != parts.length) {
                 throw new IOException("Wrong number of integers in FETA file line\n"+strLine);
             }
-            el= new FetaElement();
+            el= new FetaElement(1.0);
             el.time_= time;
             el.type_= type;
             el.newNodeName_= newnode;
@@ -211,20 +211,22 @@ public class FetaNetwork {
         long time= Long.MIN_VALUE;
         ArrayList<LinkTimeElement> ltset= new ArrayList<LinkTimeElement>();
         LinkTimeElement lte;
+        ArrayList<Double> opProb= new ArrayList<Double> ();
+        ArrayList<Double> obProb= new ArrayList<Double> ();
         while (true) {
             // If nothing left to process then give up
             if (index >= links.size()) {
-                processSet(ltset,like);
+                processSet(ltset,like,obProb,opProb);
                 return;
             }
             lte= links.get(index);
             // Reached time to stop
             if (lte.time_ >= options_.actionStopTime_) {
-                processSet(ltset,like);
+                processSet(ltset,like,obProb,opProb);
                 return;
             }
             if (lte.time_ > time) {
-                processSet(ltset, like);
+                processSet(ltset, like,obProb,opProb);
                 ltset= new ArrayList<LinkTimeElement>();
             }
             ltset.add(lte);
@@ -236,7 +238,9 @@ public class FetaNetwork {
   
     
     /** Process array into FETA format */
-    public void processSet(ArrayList<LinkTimeElement> lte, Likelihood like) throws IOException
+    public void processSet
+		(ArrayList<LinkTimeElement> lte, Likelihood like, 
+			ArrayList <Double>obProb, ArrayList <Double> opProb) throws IOException
     {
         if (lte.size() == 0) {
             return;
@@ -249,9 +253,12 @@ public class FetaNetwork {
                 if (fe == null) {
                     break;
                 }
-                if (like != null) 
+                if (like != null) {
                     like.calcLL(fe,network_,options_.objectModels_
                     [FetaElement.OPERATION_ADD_CLIQUE],options_.operationModel_);
+					opProb.add(like.lastOpProb_);
+					obProb.add(like.lastObProb_);
+                }
                 elements_.add(fe);
                 network_.addFetaElement(fe);
             }
@@ -263,21 +270,27 @@ public class FetaNetwork {
             if (fe == null) {
                 break;
             }
-            if (like != null)
+            if (like != null) {
                 like.calcLL(fe,network_,options_.objectModels_
                 [FetaElement.OPERATION_ADD_NODE],options_.operationModel_);
+                opProb.add(like.lastOpProb_);
+				obProb.add(like.lastObProb_);
+            }
             elements_.add(fe);
             network_.addFetaElement(fe);
             
         }
         while (lte.size() > 0) {
             l= lte.remove(lte.size()-1);
-            FetaElement e= new FetaElement();
+            FetaElement e= new FetaElement(1.0);
             e.addLink(l.node1_,l.node2_,l.time_);
             //System.out.println("Adding "+e);
-            if (like != null)
+            if (like != null) {
                 like.calcLL(e,network_,options_.objectModels_[FetaElement.OPERATION_ADD_LINK],
                 options_.operationModel_); 
+            	opProb.add(like.lastOpProb_);
+				obProb.add(like.lastObProb_);
+			}
             elements_.add(e);
             network_.addFetaElement(e);
             
@@ -367,7 +380,7 @@ public class FetaNetwork {
             }
         }
         // Create feta element
-        FetaElement fe= new FetaElement();
+        FetaElement fe= new FetaElement(1.0);
         ArrayList <String> oldn= new ArrayList<String>();
         ArrayList <String> newn= new ArrayList<String>();
         
@@ -543,7 +556,7 @@ public class FetaNetwork {
             }
         }
         // Now remove them from 
-        FetaElement e= new FetaElement();
+        FetaElement e= new FetaElement(1.0);
         e.type_= FetaElement.OPERATION_ADD_NODE;
         String []oldNames= new String[oldNodes];
         for (int i= 0; i< oldNodes; i++) {

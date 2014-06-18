@@ -19,9 +19,34 @@ public class FetaElement implements Serializable, Comparable<FetaElement> {
     public String []newNodes_= null;
     public String newNodeName_= null;
     
-    public FetaElement() {
+    private double opProb_= 0.0;
+    private double obProb_= 0.0;
+    
+    public FetaElement(double op) {
         oldNodes_= new String[0];
+        obProb_= 1.0;
+        opProb_= op;
     }
+    
+    public double getOpProb()
+    {
+		return opProb_;
+	}
+	
+	public void multOpProb(double p)
+	{
+		opProb_*= p;
+	}
+	
+	public double getObProb()
+	{
+		return obProb_;
+	}
+    
+    public void multObProb(double p)
+    {
+		obProb_*= p;
+	}
     
     public boolean typeEquals(FetaElement e) 
     {

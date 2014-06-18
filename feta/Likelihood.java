@@ -10,7 +10,8 @@ public class Likelihood {
     public boolean opLLFail_= false;
     public double xvProp_;
     public double calProp_;
-    
+    public double lastOpProb_= 0.0;
+    public double lastObProb_= 0.0;
     
     private int seed_;
     private Random rng_;
@@ -55,6 +56,7 @@ public class Likelihood {
             return;
         }
         opLL_+= Math.log(likelihood);
+        lastOpProb_= likelihood;
     }
     
     /** Calculate log likelihood from a given Operation and Object Model
@@ -91,6 +93,7 @@ public class Likelihood {
         logRandProb= Math.log(1.0/net.noNodes_)*fe.noOldNodes_;
         //System.out.println("Old"+Math.log(totProb)+"New"+logProb);
         llComponents_[set].addLogProbability(logProb,logRandProb,fe.noOldNodes_);
+        lastObProb_= totProb;
     }
     
     public String prettyPrint()

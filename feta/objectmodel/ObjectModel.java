@@ -59,7 +59,7 @@ public class ObjectModel {
     }
     
     /** return up to noNodes nodes in network according to model*/
-    public int [] getNodes(int from, int noNodes, Network net)
+    public int [] getNodes(FetaElement fe, int from, int noNodes, Network net)
     {
         
         int availableNodeCount= 0;
@@ -97,18 +97,17 @@ public class ObjectModel {
         if (availableNodeCount < noNodes) {
             noNodes= availableNodeCount;
         }
-        int []nodes= getTheNodes(net, noNodes);
-
-        
+        int []n= getTheNodes(fe,net, noNodes);
+		
         // ADd back removed members
         for (int i= 0; i < remove.length; i++) {
             NodeSet ns= net.tns_.nodeMap_.get((Integer)remove[i]);
             ns.members_.add((Integer)remove[i]);
         }
-        return nodes;
+        return n;
     }
     
-    private int []getTheNodes(Network net, int noNodes)
+    private int []getTheNodes(FetaElement fe,Network net, int noNodes)
     {
         int []nodes= new int[noNodes];
         int n;
@@ -136,6 +135,7 @@ public class ObjectModel {
             + (prob*(1.0-probUsed)));
            probUsed+= prob; */
         }
+        fe.multObProb(totProb);
         /*System.out.println("Tot prob "+totProb);*/
         return nodes;
     }

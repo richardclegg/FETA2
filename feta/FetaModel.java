@@ -63,7 +63,14 @@ public class FetaModel {
                 System.err.println("Could not create R file: "+e.getMessage());
                 System.exit(-1);
             }
-        }
+        } else if (options_.fetaAction_ == FetaOptions.ACTION_TEST) {
+			try {
+				testModel();
+			} catch (IOException e) {
+                System.err.println("Could not test model file: "+e.getMessage());
+                System.exit(-1);
+            }
+		}
     }
     /** Grow a new network */
     public void grow() throws IOException {
@@ -102,9 +109,6 @@ public class FetaModel {
             options_.actionInterval_);
         FetaElement fe;
         while (true) {
-            /**if (network_.noNodes_%1000 == 0) {
-                System.err.println(network_.noNodes_+" nodes");
-            }*/
             fe= om.nextElement(network_);
             if (fe == null)
                 break;
@@ -129,20 +133,18 @@ public class FetaModel {
         }
     }
     
-    private void growByOperation(FetaElement e) throws IOException
+    /** Grow the network according to the operation model */
+    private double growByOperation(FetaElement e) throws IOException
     {
         switch (e.type_) {
             case (FetaElement.OPERATION_ADD_CLIQUE):
-                network_.growByClique(e, 
+                return network_.growByClique(e, 
                     options_.objectModels_[e.type_]);
-                break;
             case (FetaElement.OPERATION_ADD_NODE):
-                network_.growByNode(e,options_.objectModels_[e.type_]);
-                break;
+                return network_.growByNode(e,options_.objectModels_[e.type_]);
             case (FetaElement.OPERATION_ADD_LINK):
-                network_.growByLink(e,
+                return network_.growByLink(e,
                     options_.objectModels_[e.type_]);
-                break;
             default:
                 throw new IOException("Unrecognised outer model type "+
                     e.type_+" in FetaModel.growFetaFile");
@@ -389,5 +391,90 @@ public class FetaModel {
             }
         }
     }
+    
+    /** Check model meets expectations */
+    private void testModel() throws IOException {
+	        checkModels();
+        network_= new Network(options_);
+        if (options_.graphFileInput_ != null) {
+            ArrayList <LinkTimeElement> links= network_.read
+                (options_.graphFileInput_, options_.fileFormatRead_);
+            network_.buildNetwork(links, options_.actionStartTime_);
+        } 
+        
+        network_.startTracking(options_);
+        if (options_.operationModel_ != null && options_.fetaFileInput_ != null) {
+            throw new IOException("Operation model and FETA input file both specified");
+        }
+        if (options_.operationModel_ == null) {
+            throw new IOException("Must specify Operation Model for growth");
+        }	
+                OperationModel om= options_.operationModel_;
+        if ((options_.actionInterval_ == 0 || 
+            options_.actionStopTime_== Long.MAX_VALUE)
+            && (options_.maxLinks_ == Integer.MAX_VALUE) 
+            && (options_.maxNodes_ == Integer.MAX_VALUE)
+            && (!om.providesStop())) {
+            System.err.println("No stopping criteria for growth model\n");
+            System.exit(-1);
+        }
+        om.initialise(options_.actionStartTime_, 
+            options_.actionInterval_);
+        ArrayList <Double> obs= new ArrayList<Double>();
+        ArrayList <Double> ops= new ArrayList<Double>();
+        FetaElement fe;
+        while (true) {
+            fe= om.nextElement(network_);
+            obs.add(fe.getObProb());
+            ops.add(fe.getOpProb());
+            if (fe == null)
+                break;
+            if (fe.time_ >= options_.actionStopTime_)
+                break;
+            growByOperation(fe);
+            if (network_.noNodes_ >= options_.maxNodes_)
+                break;
+            if (network_.noLinks_ >= options_.maxLinks_)
+                break;
+        }
+        ArrayList <LinkTimeElement> links=  network_.getLTE();
+        network_= new Network(options_);
+        links= network_.buildNetwork(links,
+			options_.actionStartTime_);
+
+        network_.startTracking(options_);
+        /*for (LinkTimeElement l2: links) {
+            System.out.println(l2.node1_+" "+l2.node2_);
+        }*/
+        FetaNetwork fetaNetwork= new FetaNetwork(network_, options_);
+        
+        int index= 0;
+        long time= Long.MIN_VALUE;
+        ArrayList<LinkTimeElement> ltset= new ArrayList<LinkTimeElement>();
+        LinkTimeElement lte;
+        Likelihood like= new Likelihood(0,0.0,0.0);
+        ArrayList <Double> newObProb= new ArrayList <Double>();
+        ArrayList <Double> newOpProb= new ArrayList <Double>();
+        while (true) {
+            // If nothing left to process then give up
+            if (index >= links.size()) {
+                fetaNetwork.processSet(ltset,like,newObProb, newOpProb);
+                break;
+            }
+            lte= links.get(index);
+            // Reached time to stop
+            if (lte.time_ >= options_.actionStopTime_) {
+                fetaNetwork.processSet(ltset,like,newObProb, newOpProb);
+                break;
+            }
+            if (lte.time_ > time) {
+                fetaNetwork.processSet(ltset, like,newObProb, newOpProb);
+                ltset= new ArrayList<LinkTimeElement>();
+            }
+            ltset.add(lte);
+            time= lte.time_;
+            index++;
+        }
+	}
     
 }

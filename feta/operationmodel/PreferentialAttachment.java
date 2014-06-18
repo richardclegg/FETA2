@@ -31,7 +31,7 @@ public class PreferentialAttachment extends OperationModel {
     /** Generate a potential FetaElement using this Operation model
      * The contents of the objectnodes will be dummy*/
     public FetaElement nextElement(Network net) {
-        FetaElement fe= new FetaElement();
+        FetaElement fe= new FetaElement(1.0);
         fe.addNode(null, new String[addNodes_],new String[0], time_);
         time_+= interval_;
         return fe;

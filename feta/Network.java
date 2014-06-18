@@ -380,6 +380,11 @@ public class Network {
         outDegreeDistrib_[outDeg]--;
     }
     
+    public ArrayList <LinkTimeElement> getLTE()
+    {
+		return links_;
+	}
+    
     /** Read file which is in format Nodename Nodename Time*/
     public ArrayList <LinkTimeElement> readNNT(String file) throws IOException {
         ArrayList<LinkTimeElement> l= new ArrayList<LinkTimeElement>();
@@ -731,9 +736,9 @@ public class Network {
     
   
     /** Grows network by adding new node*/
-    public void growByNode(FetaElement fe, ObjectModel model) 
+    public double growByNode(FetaElement fe, ObjectModel model) 
     {
-        int []nodes= model.getNodes(-1,fe.noOldNodes_, this);
+        int []nodes= model.getNodes(fe, -1,fe.noOldNodes_, this);
         int noOldNodes= nodes.length;
         String []oldNodes= new String[noOldNodes];
         for (int i= 0; i < noOldNodes; i++) {
@@ -747,6 +752,7 @@ public class Network {
         }
         fe.addNode(node,oldNodes,newNodes,fe.time_);
         addFetaNode(fe);
+        return fe.getObProb();
     }
     
     /** Add objects from a feta node to network*/
@@ -783,17 +789,18 @@ public class Network {
             System.err.println("Error"+e.getMessage());
             System.exit(-1);
         }
+        
     }
     
 
 
     /** Grows network by adding link between existing nodes */
-    public void growByLink(FetaElement fe, ObjectModel model) 
+    public double growByLink(FetaElement fe, ObjectModel model) 
     {
-        int []nodes1= model.getNodes(-1,1, this);
+        int []nodes1= model.getNodes(fe,-1,1, this);
         int []nodes2= new int[0];
         if (nodes1.length == 1) {
-            nodes2= model.getNodes(nodes1[0],1, this);
+            nodes2= model.getNodes(fe,nodes1[0],1, this);
         }
         String node1;
         String node2;
@@ -818,6 +825,7 @@ public class Network {
             fe.addNode(node,oldNodes,newNodes,fe.time_);
             addFetaNode(fe);
         } 
+        return fe.getObProb();
     }
     
     
@@ -833,9 +841,9 @@ public class Network {
     }
     
     /** Grows network by adding clique */
-    public void growByClique(FetaElement fe, ObjectModel model) 
+    public double growByClique(FetaElement fe, ObjectModel model) 
     {
-        int []nodes= model.getNodes(-1,fe.noOldNodes_,this);
+        int []nodes= model.getNodes(fe,-1,fe.noOldNodes_,this);
         String []newNodes= new String[fe.noNewNodes_];
         int noOldNodes= nodes.length; // number actually returned --
                                 // may be not number requested
@@ -847,6 +855,7 @@ public class Network {
             oldNodes[i]= numberToName_.get(nodes[i]);
         }
         fe.addClique(oldNodes, newNodes,fe.time_);
+        return fe.getObProb();
     }
     
     /** Grows network by adding clique */
