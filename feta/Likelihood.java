@@ -74,24 +74,8 @@ public class Likelihood {
             nodes[i]= net.nameToNumber_.get(fe.oldNodes_[i]);
         }
         double totProb= obm.calcProbabilitySet(net, nodes);
-        //for (int i= 0; i < fe.noOldNodes_; i++) {
-            //int node= net.nameToNumber_.get(fe.oldNodes_[i]);
-            ///*System.out.println(
-            //fe.objectNodes_[i]+" "+obm.calcProbability(node,net,false)+" "+
-            //1.0/net.noNodes_);
-            //System.out.println("Selected node "+node+" probability "+
-                //obm.calcProbability(node,net,false)+ 
-                //" nodes "+net.noNodes_+" links "+net.noLinks_);*/
-            //double tmpProb= obm.calcProbability(node,net,false);
-            //if (tmpProb <= 0) {
-                //llComponents_[set].setFail();
-            //}
-            //logProb+= Math.log(tmpProb);
-            //logRandProb+= Math.log(1.0/net.noNodes_);
-        //}
         logProb= Math.log(totProb);
         logRandProb= Math.log(1.0/net.noNodes_)*fe.noOldNodes_;
-        //System.out.println("Old"+Math.log(totProb)+"New"+logProb);
         llComponents_[set].addLogProbability(logProb,logRandProb,fe.noOldNodes_);
         lastObProb_= totProb;
     }

@@ -126,17 +126,12 @@ public class ObjectModel {
                     nodes[i]= n;
                     break;
                 }
-            }
-            //System.out.println(calcProbability(n,net,false)+" "+1.0/net.noNodes_);
+           }
            double prob= calcProbability(n,net,false);
            totProb*= prob*(1.0-probUsed);
-           
-           /*System.out.println("Selected node prob "+prob+" prob*used "+
-            + (prob*(1.0-probUsed)));
-           probUsed+= prob; */
+           probUsed+= prob;
         }
         fe.multObProb(totProb);
-        /*System.out.println("Tot prob "+totProb);*/
         return nodes;
     }
     
@@ -185,10 +180,9 @@ public class ObjectModel {
         double probUsed= 0.0;
         for (int n: nodes) {
             prob= calcProbability(n, net, false);
-            /*System.out.println("Selected node prob "+prob+" prob*used "+
-            + (prob*(1.0-probUsed)));
-            totProb*= prob*(1.0 - probUsed);
-            probUsed+= prob;*/
+            prob*=(1.0-probUsed);
+            totProb*= prob;
+            probUsed+= prob;
         }
         //System.out.println("Tot prob "+totProb);
         return totProb;

@@ -394,7 +394,7 @@ public class FetaModel {
     
     /** Check model meets expectations */
     private void testModel() throws IOException {
-	        checkModels();
+	    checkModels();
         network_= new Network(options_);
         if (options_.graphFileInput_ != null) {
             ArrayList <LinkTimeElement> links= network_.read
@@ -409,7 +409,7 @@ public class FetaModel {
         if (options_.operationModel_ == null) {
             throw new IOException("Must specify Operation Model for growth");
         }	
-                OperationModel om= options_.operationModel_;
+        OperationModel om= options_.operationModel_;
         if ((options_.actionInterval_ == 0 || 
             options_.actionStopTime_== Long.MAX_VALUE)
             && (options_.maxLinks_ == Integer.MAX_VALUE) 
@@ -425,27 +425,27 @@ public class FetaModel {
         FetaElement fe;
         while (true) {
             fe= om.nextElement(network_);
-            obs.add(fe.getObProb());
+            
             ops.add(fe.getOpProb());
             if (fe == null)
                 break;
             if (fe.time_ >= options_.actionStopTime_)
                 break;
-            growByOperation(fe);
+            obs.add(growByOperation(fe));
             if (network_.noNodes_ >= options_.maxNodes_)
                 break;
             if (network_.noLinks_ >= options_.maxLinks_)
                 break;
         }
         ArrayList <LinkTimeElement> links=  network_.getLTE();
+        
+        
         network_= new Network(options_);
         links= network_.buildNetwork(links,
 			options_.actionStartTime_);
 
         network_.startTracking(options_);
-        /*for (LinkTimeElement l2: links) {
-            System.out.println(l2.node1_+" "+l2.node2_);
-        }*/
+        
         FetaNetwork fetaNetwork= new FetaNetwork(network_, options_);
         
         int index= 0;
@@ -475,6 +475,24 @@ public class FetaModel {
             time= lte.time_;
             index++;
         }
+        int errors= 0;
+        for (int i= 0; i < obs.size(); i++) {
+			if (Double.compare(ops.get(i),newOpProb.get(i)) != 0) {
+				System.out.println("Operation prob match failure at "+
+					i+" Grow prob "+ops.get(i)+ " calculate prob "+
+					newOpProb.get(i));
+				errors+= 1;
+			}
+			if (Double.compare(obs.get(i),newObProb.get(i)) != 0) {
+				System.out.println("Object prob match failure at "+
+					i+" Grow prob "+obs.get(i)+ " calculate prob "+
+					newObProb.get(i));
+				errors+= 1;
+			}
+			
+		}
+		System.out.println (obs.size()+" operations checked with "+
+			errors+" errors");
 	}
     
 }

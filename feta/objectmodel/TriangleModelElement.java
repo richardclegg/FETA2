@@ -58,8 +58,8 @@ public class TriangleModelElement extends ObjectModelElement {
     
     public double calcProbability(int nodeNo, Network net)
     {
-        // If there are no degree 1 nodes then treat all equally
-        if (net.totTri_ == 0) {
+        // If there are no triangles then treat all equally
+        if (normalise_ == 0) {
             return 1.0/net.noNodes_;
         } else {
             return normalise_*net.triCount_.get(nodeNo);

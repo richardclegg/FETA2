@@ -33,10 +33,6 @@ public class FetaElement implements Serializable, Comparable<FetaElement> {
 		return opProb_;
 	}
 	
-	public void multOpProb(double p)
-	{
-		opProb_*= p;
-	}
 	
 	public double getObProb()
 	{
