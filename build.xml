@@ -1,25 +1,31 @@
 <project name="FETA2" default="usage" basedir=".">
 
+  
   <!-- Initializations -->
-  <target name="init">    
+  <target name="init">   
     <echo message="------------ Building FETA2 ----------"/>
     <echo message=""/>
     <property name="sources" value="${basedir}"/>
-    <property name="classes" value="${basedir}/classes"/>
-    <property name="external.jars" value="./libs/rgcxmlparse.jar" />
+    <property name="lib.dir" value="${basedir}/libs"/>
+    <property name="external.jars" value="${basedir}/libs/rgcxmlparse.jar" />
     <property name="api" value="${basedir}/docs"/>    
     <property name="year" value="2014"/>
-    <property name="jars" value="${basedir}"/>
     <property name="release" value="1.0.0" />
+    <path id="feta.classpath">
+        <fileset dir="${basedir}/libs">
+        <include name="rgcxmlparse.jar"/>
+        </fileset>
+        <pathelement path="${basedir}"/>
+    </path>
   </target>
 
   <!-- Build -->
   <target name="build" depends="init">
     <echo message="------ Compiling application"/>
     <mkdir dir="${classes}"/>
-    <javac debug="on" srcdir="${sources}" classpath="${external.jars}" includeantruntime="false">
-	   <!-- destdir="${classes}" -->
+    <javac debug="on" srcdir="${sources}"  includeantruntime="false">
     <include name="feta/**" />
+     <classpath refid="feta.classpath"/>
     </javac>
 
   </target>
@@ -27,8 +33,18 @@
   <!-- jar -->
   <target name="jar" depends="build">
     <echo message="------ Building Jar file"/>
-    <jar jarfile="${jars}/feta2-${release}.jar"
-    basedir="${basedir}" includes="feta2/**" />
+        
+    <jar destfile="${basedir}/feta2-${release}.jar" 
+        excludes="${basedir}/feta2-${release}.jar"
+         >
+         <fileset dir="${basedir}" includes="**/*.class" />
+        <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+        <manifest>
+            <attribute name="Main-Class" value="feta.FetaCLI" />
+        </manifest>
+        
+    </jar> 
+    
   </target>
 
 
@@ -38,7 +54,6 @@
      <javadoc packagenames="feta.*"
               sourcepath="${sources}"
               destdir="${api}"
-	      classpath="${external.jars}"
 	      excludepackagenames=""
               bottom="User Space Routing ${release}"
               author="false">
