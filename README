@@ -14,7 +14,7 @@ Add to .bashrc (or equivalent) correcting the paht in the first line.
 Then source ~/.bashrc
 
 FETAHOME=${HOME}/code/FETA2
-CLASSPATH=${CLASSPATH}:${FETAHOME}:${FETAHOME}/libs/*
+export CLASSPATH=${CLASSPATH}:${FETAHOME}:${FETAHOME}/libs/*
 
 
 
