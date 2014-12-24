@@ -174,13 +174,13 @@ public class ObjectModel {
     }
     
     /** Calc probability of set of nodes on list */
-    public double calcProbabilitySet(Network net, int nodes[]){
+    public double calcProbabilitySet(Network net, FetaElement fe, int nodes[]){
         double prob;
         double totProb= 1.0;
         double probUsed= 0.0;
         for (int n: nodes) {
             prob= calcProbability(n, net, false);
-            prob*=(1.0-probUsed);
+            prob/=(1.0-probUsed);
             totProb*= prob;
             probUsed+= prob;
         }

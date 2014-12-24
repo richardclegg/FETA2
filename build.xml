@@ -7,6 +7,7 @@
     <echo message=""/>
     <property name="sources" value="${basedir}"/>
     <property name="lib.dir" value="${basedir}/libs"/>
+    <property name="classes" value="${basedir}/classes"/>
     <property name="external.jars" value="${basedir}/libs/rgcxmlparse.jar" />
     <property name="api" value="${basedir}/docs"/>    
     <property name="year" value="2014"/>
