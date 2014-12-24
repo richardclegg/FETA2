@@ -74,7 +74,7 @@ public class Likelihood {
             nodes[i]= net.nameToNumber_.get(fe.oldNodes_[i]);
         }
         double totProb= obm.calcProbabilitySet(net, fe, nodes);
-        System.err.println("Tot prob "+totProb);
+        //System.err.println("Tot prob "+totProb);
         logProb= Math.log(totProb);
         logRandProb= Math.log(1.0/net.noNodes_)*fe.noOldNodes_;
         llComponents_[set].addLogProbability(logProb,logRandProb,fe.noOldNodes_);
