@@ -128,7 +128,7 @@ public class ObjectModel {
                 }
            }
            double prob= calcProbability(n,net,false);
-           totProb*= prob*(1.0-probUsed);
+           totProb*= prob/(1.0-probUsed);
            probUsed+= prob;
         }
         fe.multObProb(totProb);
@@ -180,8 +180,7 @@ public class ObjectModel {
         double probUsed= 0.0;
         for (int n: nodes) {
             prob= calcProbability(n, net, false);
-            prob/=(1.0-probUsed);
-            totProb*= prob;
+            totProb*= prob/(1.0-probUsed);
             probUsed+= prob;
         }
         //System.out.println("Tot prob "+totProb);
