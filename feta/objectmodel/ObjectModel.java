@@ -178,10 +178,19 @@ public class ObjectModel {
         double prob;
         double totProb= 1.0;
         double probUsed= 0.0;
+        ArrayList <Integer> usedNodes = new ArrayList<Integer>();
         for (int n: nodes) {
             prob= calcProbability(n, net, false);
+            //int []outL= net.outLinks_.get(n);
             totProb*= prob/(1.0-probUsed);
             probUsed+= prob;
+            //for (Integer m: outL) {
+                //if (!usedNodes.contains(m)) {
+                    //usedNodes.add(m);
+                    //probUsed+= calcProbability(m,net,false);
+                //}
+            //}
+            
         }
         //System.out.println("Tot prob "+totProb);
         return totProb;
