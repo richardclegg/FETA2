@@ -174,15 +174,19 @@ public class ObjectModel {
     }
     
     /** Calc probability of set of nodes on list */
-    public double calcProbabilitySet(Network net, FetaElement fe, int nodes[]){
+    public double calcLogProbabilitySet(Network net, FetaElement fe, int nodes[]){
         double prob;
-        double totProb= 1.0;
+        double totLogProb= 0.0;
         double probUsed= 0.0;
         ArrayList <Integer> usedNodes = new ArrayList<Integer>();
         for (int n: nodes) {
             prob= calcProbability(n, net, false);
+            if (prob <= 0) {
+                System.out.println("Object returned zero prob"+fe);
+                System.exit(0);
+            }
             //int []outL= net.outLinks_.get(n);
-            totProb*= prob/(1.0-probUsed);
+            totLogProb+= Math.log(prob) - Math.log(1.0-probUsed);
             probUsed+= prob;
             //for (Integer m: outL) {
                 //if (!usedNodes.contains(m)) {
@@ -193,7 +197,7 @@ public class ObjectModel {
             
         }
         //System.out.println("Tot prob "+totProb);
-        return totProb;
+        return totLogProb;
     }
     
     /** Calculate probability for a specific node */

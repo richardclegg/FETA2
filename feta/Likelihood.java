@@ -52,6 +52,7 @@ public class Likelihood {
             return;
         double likelihood= opm.calcProb(net,fe);
         if (likelihood <= 0.0) {
+            System.out.println("Operation Likelihood zero with "+fe);
             opLLFail_= true;
             return;
         }
@@ -73,12 +74,12 @@ public class Likelihood {
         for (int i= 0; i < fe.noOldNodes_; i++) {
             nodes[i]= net.nameToNumber_.get(fe.oldNodes_[i]);
         }
-        double totProb= obm.calcProbabilitySet(net, fe, nodes);
+        
         //System.err.println("Tot prob "+totProb);
-        logProb= Math.log(totProb);
+        logProb= obm.calcLogProbabilitySet(net, fe, nodes);
         logRandProb= Math.log(1.0/net.noNodes_)*fe.noOldNodes_;
         llComponents_[set].addLogProbability(logProb,logRandProb,fe.noOldNodes_);
-        lastObProb_= totProb;
+        lastObProb_= Math.exp(logProb);
     }
     
     public String prettyPrint()
