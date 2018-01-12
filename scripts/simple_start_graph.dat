@@ -1,0 +1,12 @@
+Node-A   Node-B  1
+Node-B Node-C  2
+Node-A Node-D  7
+Node-A Node-C  9
+Node-A Node-E 10
+Node-E Node-F 11
+Node-F Node-A 11
+Node-F Node-G 11
+Node-E Node-C 11
+
+
+

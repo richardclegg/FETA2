@@ -1,0 +1,11 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>test.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>false</Complex>
+    </DataFile>
+    <Action>
+        <Type>Measure</Type>
+        <Interval>1</Interval>
+    </Action>
+</FetaOptions>

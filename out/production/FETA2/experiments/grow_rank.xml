@@ -1,0 +1,35 @@
+<FetaOptions>
+    <DataFile>
+        <GraphOutput>test.dat</GraphOutput>
+        <GraphInput>scripts/simple_start_graph.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>false</Complex>
+    </DataFile>
+    <Action>
+        <Type>Grow</Type>
+        <Start>10</Start>
+    </Action>
+    <OperationModel>
+        <Cliques>false</Cliques>
+        <Type>feta.operationmodel.PreferentialAttachment</Type>
+        <MaxNodes>1000</MaxNodes>
+    </OperationModel>
+    <ObjectModel>
+        <Entity>Link</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.RankPreferenceElement</Type>
+            <Power>1.0</Power>
+            <Weight>0.0</Weight>
+        </Element>
+    </ObjectModel>
+    <ObjectModel>
+        <Entity>Node</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.RankPreferenceElement</Type>
+            <Power>1.0</Power>
+            <Weight>1.0</Weight>
+        </Element>
+    </ObjectModel>
+</FetaOptions>
