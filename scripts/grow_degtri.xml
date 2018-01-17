@@ -1,0 +1,37 @@
+﻿<FetaOptions>
+    <DataFile>
+        <GraphOutput>output/test.dat</GraphOutput>
+        <GraphInput>scripts/simple_start_graph.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>false</Complex>
+    </DataFile>
+    <Action>
+        <Type>Grow</Type>
+        <Start>10</Start>
+    </Action>
+    <OperationModel>
+        <Cliques>false</Cliques>
+        <Type>feta.operationmodel.PreferentialAttachment</Type>
+        <MaxNodes>10000</MaxNodes>
+    </OperationModel>
+    <ObjectModel>
+        <Entity>Link</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.DegreeTrichotomyElement</Type>
+            <Weight>1.0</Weight>
+            <LowerDegree>5</LowerDegree>
+            <UpperDegree>25</UpperDegree>
+        </Element>
+    </ObjectModel>
+    <ObjectModel>
+        <Entity>Node</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.DegreeTrichotomyElement</Type>
+            <Weight>1.0</Weight>
+            <LowerDegree>5</LowerDegree>
+            <UpperDegree>25</UpperDegree>
+        </Element>
+    </ObjectModel>
+</FetaOptions>
