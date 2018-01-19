@@ -58,7 +58,8 @@ public abstract class ObjectModelElement {
         return 0;
     }
     
-    
+    /** Does this model require rank */
+    public boolean useRank() { return false; }
     
     /** Does this model element require triangle counts */
     public boolean useTri()

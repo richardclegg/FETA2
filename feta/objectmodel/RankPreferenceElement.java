@@ -16,12 +16,14 @@ public class RankPreferenceElement extends ObjectModelElement {
     {
     }
 
-    public boolean useInDegree(){ return true; }
+    public boolean useInDegree(){ return false; }
+
+    public boolean useRank() { return true; }
 
     public int [] getTrackingRequirements()
     {
-        int []i= new int[1];
-        i[0]= ObjectModelElement.TRACK_DEGREE_DIST;
+        int []i= new int[0];
+
         return i;
     }
 
@@ -34,7 +36,7 @@ public class RankPreferenceElement extends ObjectModelElement {
             System.exit(-1);
         }
 
-        for(int i = 1; i<= net.noNodes_-1; i++){
+        for(int i = 1; i<= net.noNodes_; i++){
             total += Math.pow(i,-power);
         }
 
@@ -44,8 +46,6 @@ public class RankPreferenceElement extends ObjectModelElement {
         else {
             normalise_ = 1.0/total;
         }
-        //bug control
-        System.out.println(total+" "+normalise_+" "+net.noNodes_);
     }
 
     /**Calculate the normalisation constant from*/
@@ -98,8 +98,6 @@ public class RankPreferenceElement extends ObjectModelElement {
         else {
             prob =  Math.pow(nodeNo+1, -power)*normalise_;
         }
-        //bug control
-        System.out.println(nodeNo+" "+prob);
         return prob;
 
     }

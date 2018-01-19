@@ -12,7 +12,7 @@
     <OperationModel>
         <Cliques>false</Cliques>
         <Type>feta.operationmodel.PreferentialAttachment</Type>
-        <MaxNodes>10000</MaxNodes>
+        <MaxNodes>1000</MaxNodes>
     </OperationModel>
     <ObjectModel>
         <Entity>Link</Entity>
@@ -20,7 +20,7 @@
         <Element>
             <Type>feta.objectmodel.RankPreferenceElement</Type>
             <Weight>1.0</Weight>
-            <Power>-1.0</Power>
+            <Power>3.0</Power>
         </Element>
     </ObjectModel>
     <ObjectModel>
@@ -29,7 +29,7 @@
         <Element>
             <Type>feta.objectmodel.RankPreferenceElement</Type>
             <Weight>1.0</Weight>
-            <Power>-1.0</Power>
+            <Power>3.0</Power>
         </Element>
     </ObjectModel>
 </FetaOptions>
