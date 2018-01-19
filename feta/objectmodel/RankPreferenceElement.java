@@ -34,7 +34,7 @@ public class RankPreferenceElement extends ObjectModelElement {
             System.exit(-1);
         }
 
-        for(int i = 1; i<= net.noNodes_+1; i++){
+        for(int i = 1; i<= net.noNodes_-1; i++){
             total += Math.pow(i,-power);
         }
 
@@ -44,6 +44,8 @@ public class RankPreferenceElement extends ObjectModelElement {
         else {
             normalise_ = 1.0/total;
         }
+        //bug control
+        System.out.println(total+" "+normalise_+" "+net.noNodes_);
     }
 
     /**Calculate the normalisation constant from*/
@@ -88,14 +90,18 @@ public class RankPreferenceElement extends ObjectModelElement {
     }
 
     public double calcProbability(int nodeNo, Network net)
-    {
+    { double prob = 0;
         if (normalise_ == 0.0){
             System.out.println("Random");
-            return 1.0/net.noNodes_;
+            prob =  1.0/net.noNodes_;
         }
         else {
-            return Math.pow(nodeNo + 1, -power)*normalise_;
+            prob =  Math.pow(nodeNo+1, -power)*normalise_;
         }
+        //bug control
+        System.out.println(nodeNo+" "+prob);
+        return prob;
+
     }
 
 }

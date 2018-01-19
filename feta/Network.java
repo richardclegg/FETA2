@@ -609,7 +609,7 @@ public class Network {
     // Manipulate arrays to add a link
     // without adding it to linktime element array
     private void addSimpleLink(int node1, int node2, long time) 
-    {
+    {   //Change the appropriate data structures for node 1 after the addition of a new link
         int[] oldLinks= outLinks_.get(node1);
         long[] oldTimes= outLinksTime_.get(node1);
         int[] newLinks= new int[oldLinks.length+1];
@@ -624,9 +624,11 @@ public class Network {
         
         newLinks[oldLinks.length]= node2;
         newTimes[oldLinks.length]= time;
+        //Add the new outlinks to node1's outlink array
         outLinks_.set(node1,newLinks);
         outLinksTime_.set(node1,newTimes);
-        
+
+        //Do exactly the same for node2
         oldLinks= inLinks_.get(node2);
         oldTimes= inLinksTime_.get(node2);
         newLinks= new int[oldLinks.length+1];
@@ -637,7 +639,10 @@ public class Network {
         newTimes[oldLinks.length]= time;
         inLinks_.set(node2,newLinks);
         inLinksTime_.set(node2,newTimes);
+
         noLinks_++;
+
+        //Node tracking options
         if (tns_ != null) {
             if (trackTri_) {
                 while (node1 >= triCount_.size()) {
@@ -901,7 +906,8 @@ public class Network {
             " "+doubletonInCount_+" "+doubletonOutCount_+
             " "+meanInDegSq_+" "+meanOutDegSq_+" "+assortIn_+" "+assortOut_);
     }
-    
+
+    //n.b. triangle count of node i is number of pairs of neighbours of i that are themselves neighbours
     private int triCount(int node)
     {
         int []outLinks= outLinks_.get(node);
