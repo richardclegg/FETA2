@@ -66,4 +66,8 @@ public abstract class ObjectModelElement {
     {
         return false;
     }
+
+    /** Does this model element require time groups */
+    public boolean useTimeGroup() { return false; }
+
 }

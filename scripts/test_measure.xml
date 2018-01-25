@@ -1,6 +1,6 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>experiments/tmp/grownrank.tmp</GraphInput>
+        <GraphInput>test.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
     </DataFile>

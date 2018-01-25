@@ -92,6 +92,8 @@ public class Network {
     // List of links most recently picked
     public int []hotNodes_= null;
     public int hotPos_;  // Implement as ring buffer
+
+    public int timeGroupInterval_ = 20; // size of each time group
     
     public int maxHotNodes_= 0;
     public boolean trackHot_= false;
@@ -948,6 +950,13 @@ public class Network {
             }
         }
         return triCount;
+    }
+
+    /** In which time group is a given node?*/
+    public int timeGroup(int node){
+        timeGroupInterval_ = 20;
+        int tg = node/timeGroupInterval_ + 1;
+        return tg;
     }
     
     /** Calculate all network statistics*/
