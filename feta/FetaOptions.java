@@ -59,6 +59,8 @@ public class FetaOptions {
     public int actionInterval_= 1;   // Interval for action
     public long actionStartTime_= 0;  // Start time for action
     public long actionStopTime_= Long.MAX_VALUE;   // Stop time for action
+    public boolean finalDegDist_= false;
+    public String degDistToFile_= null;
     public int maxLinks_= Integer.MAX_VALUE;
     public int maxNodes_= Integer.MAX_VALUE;
     
@@ -391,6 +393,25 @@ public class FetaOptions {
         try {
             actionStopTime_= ReadXMLUtils.parseSingleLong(node, "Stop", "Action", true);
             ReadXMLUtils.removeNode(node,"Stop","Action");
+        } catch (SAXException e) {
+            throw e;
+        } catch (XMLNoTagException e) {
+        }
+
+        //Final degree distribution?
+        try {
+            finalDegDist_= ReadXMLUtils.parseSingleBool(node, "FinalDegreeDistribution", "Action", true);
+            ReadXMLUtils.removeNode(node,"FinalDegreeDistribution","Action");
+        } catch (SAXException e) {
+            throw e;
+        } catch (XMLNoTagException e) {
+        }
+
+        //Write degree distribution to file
+
+        try {
+            degDistToFile_= ReadXMLUtils.parseSingleString(node, "ToFile", "Action", true);
+            ReadXMLUtils.removeNode(node,"ToFile","Action");
         } catch (SAXException e) {
             throw e;
         } catch (XMLNoTagException e) {

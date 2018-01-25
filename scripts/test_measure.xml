@@ -1,11 +1,13 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>scripts/simple_test_graph.dat</GraphInput>
+        <GraphInput>experiments/tmp/grownrank.tmp</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
     </DataFile>
     <Action>
         <Type>Measure</Type>  
         <Interval>1</Interval>
+        <FinalDegreeDistribution>true</FinalDegreeDistribution>
+        <ToFile>experiments/rankdegdist.dat</ToFile>
     </Action>
 </FetaOptions>

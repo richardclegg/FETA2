@@ -49,6 +49,8 @@ public class Network {
     public long nextMeasureTime_= -1;
     // Interval between measurements
     private int interval_= 1;
+    // Save final degree distribution?
+    private boolean finalDegDist_;
     
     // Set of tracking information for calculating probabilities
     public TrackNodeSet tns_= null;
@@ -103,6 +105,7 @@ public class Network {
         if (opt.fetaAction_ == FetaOptions.ACTION_MEASURE) {
             nextMeasureTime_= opt.actionStartTime_;
             interval_= opt.actionInterval_;
+            finalDegDist_= opt.finalDegDist_;
             //System.out.println("Measure "+nextMeasureTime_+" "+interval_);
         } else {
             nextMeasureTime_= -1;
@@ -905,6 +908,21 @@ public class Network {
             " "+singletonInCount_+" "+singletonOutCount_+
             " "+doubletonInCount_+" "+doubletonOutCount_+
             " "+meanInDegSq_+" "+meanOutDegSq_+" "+assortIn_+" "+assortOut_);
+    }
+
+    public void printDegDist(String filename) throws IOException {
+        if(filename == null){
+        throw new java.io.IOException("Must specify filename on which to write degree distribution");}
+        try {
+            BufferedWriter outputWriter = new BufferedWriter(new FileWriter(filename));
+            for(int i = 1; i < inDegreeDistrib_.length; i++){
+                outputWriter.write(inDegreeDistrib_[i]+" ");
+            }
+            outputWriter.flush();
+            outputWriter.close();
+        } catch (IOException e){
+            System.err.println("Problem with writing degree distribution to file");
+        }
     }
 
     //n.b. triangle count of node i is number of pairs of neighbours of i that are themselves neighbours
