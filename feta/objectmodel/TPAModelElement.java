@@ -18,6 +18,10 @@ public class TPAModelElement extends ObjectModelElement{
         return true;
     }
 
+    public boolean useInDegree(){
+        return true;
+    }
+
     private double getConnectivityFun(int tgDiff){
         double connectivity_ = Math.pow(2, -1 - (double)tgDiff);
         return connectivity_;
@@ -31,19 +35,15 @@ public class TPAModelElement extends ObjectModelElement{
 
 /**Calculate the normalisation constant */
     public void calcNormalisation(Network net) {
-        int timeGroups = net.noNodes_/net.timeGroupInterval_ + 1;
         double total = 0.0;
         if(net.tns_ == null){
             System.err.println("Tracking must be on in net for normalisation");
             System.err.println("Exiting TPAModelElement.calcNormalisationFrom");
             System.exit(-1);
         }
-        for(int i = 1; i < timeGroups; i++){
-            total+= net.timeGroupInterval_*getConnectivityFun(timeGroups - i);
+        for (int i = 0; i< net.noNodes_; i++){
+            total+= net.inLinks_.get(i).length*getConnectivityFun(getTimeGroupDiff(net.noNodes_, i, net));
         }
-        //Number of members in most recent time group
-        int remaining = net.noNodes_ - (timeGroups - 1)*net.timeGroupInterval_;
-        total+= remaining*getConnectivityFun(0);
         if(total == 0) {
             normalise_ = 0.0;
         } else {
@@ -61,16 +61,12 @@ public class TPAModelElement extends ObjectModelElement{
             System.exit(-1);
         }
 
-        int timeGroups = net.noNodes_/net.timeGroupInterval_ + 1;
-        for(int i = 1; i < timeGroups; i++){
-            total+= net.timeGroupInterval_*getConnectivityFun(timeGroups - i);
+        for (int i = 0; i< net.noNodes_; i++){
+            total+= net.inLinks_.get(i).length*getConnectivityFun(getTimeGroupDiff(net.noNodes_, i, net));
         }
-        //Number of members in most recent time group
-        int remaining = net.noNodes_ - (timeGroups - 1)*net.timeGroupInterval_;
-        total+= remaining*timeGroups;
 
         for(int j = 0; j < from.length; j++){
-            total-= getConnectivityFun(timeGroups - net.timeGroup(j));
+            total-= net.inLinks_.get(j).length*getConnectivityFun(getTimeGroupDiff(net.noNodes_, j, net));
         }
         if(total == 0){
             normalise_ = 0.0;
@@ -86,10 +82,9 @@ public class TPAModelElement extends ObjectModelElement{
             System.out.println("Random");
             return 1.0/net.noNodes_;
         }
-        int timeGroups = net.noNodes_/net.timeGroupInterval_ + 1;
-        int tg = net.timeGroup(nodeNo);
-        return getConnectivityFun(timeGroups - tg)*normalise_;
+        return net.inLinks_.get(nodeNo).length*getConnectivityFun(getTimeGroupDiff(net.noNodes_, nodeNo, net))*normalise_;
     }
+
 
     public void parseXML(Node node) throws SAXException
     {

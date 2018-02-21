@@ -159,8 +159,6 @@ public class FetaModel {
         network_.startTracking(options_,true);
         links= network_.buildNetwork(links, options_.actionStopTime_);
         network_.printNetworkStatistics(true);
-        if(options_.finalDegDist_)
-            network_.printDegDist(options_.degDistToFile_);
     }
     
     /** Prints graph likelihood */

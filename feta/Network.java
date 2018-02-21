@@ -51,6 +51,9 @@ public class Network {
     private int interval_= 1;
     // Save final degree distribution?
     private boolean finalDegDist_;
+    // Location of final degree distribution to save
+    private String degDistFile_;
+    private BufferedWriter outputWriter;
     
     // Set of tracking information for calculating probabilities
     public TrackNodeSet tns_= null;
@@ -108,6 +111,7 @@ public class Network {
             nextMeasureTime_= opt.actionStartTime_;
             interval_= opt.actionInterval_;
             finalDegDist_= opt.finalDegDist_;
+            degDistFile_ = opt.degDistToFile_;
             //System.out.println("Measure "+nextMeasureTime_+" "+interval_);
         } else {
             nextMeasureTime_= -1;
@@ -900,10 +904,22 @@ public class Network {
         if (firstRunPrint_) {
             System.out.println("#time Nodes links maxInDeg maxOutDeg CC "+
                 "SingIn SingOut DoubIn DoubOut InDegSq OutDegSq InAssort OutAssort");
+
+            if(finalDegDist_) {
+                try {
+                    outputWriter = new BufferedWriter(new FileWriter(degDistFile_));
+                } catch (IOException e){
+                    System.err.println("Problem writing degree distribution to file: invalid file input");
+                }
+            }
+
             firstRunPrint_= false;
         }
         if (changed) {
             calcStats();
+            if(finalDegDist_) {
+                printDegDist(outputWriter);
+            }
         }
         System.out.println(nextMeasureTime_+" "+noNodes_+" "+ noLinks_+
             " "+largestInDegree_+" "+largestOutDegree_+" "+ clusterCoeff_+
@@ -912,20 +928,19 @@ public class Network {
             " "+meanInDegSq_+" "+meanOutDegSq_+" "+assortIn_+" "+assortOut_);
     }
 
-    public void printDegDist(String filename) throws IOException {
-        if(filename == null){
-        throw new java.io.IOException("Must specify filename on which to write degree distribution");}
+    public void printDegDist(BufferedWriter writer) {
         try {
-            BufferedWriter outputWriter = new BufferedWriter(new FileWriter(filename));
             for(int i = 1; i < inDegreeDistrib_.length; i++){
-                outputWriter.write(inDegreeDistrib_[i]+" ");
+                writer.write(inDegreeDistrib_[i]+" ");
             }
-            outputWriter.flush();
-            outputWriter.close();
-        } catch (IOException e){
-            System.err.println("Problem with writing degree distribution to file");
+            writer.newLine();
+    } catch (IOException e) {
+            System.err.println("File writer error");
+            System.exit(-1);
         }
     }
+
+
 
     //n.b. triangle count of node i is number of pairs of neighbours of i that are themselves neighbours
     private int triCount(int node)

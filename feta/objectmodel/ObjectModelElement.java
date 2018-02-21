@@ -70,4 +70,7 @@ public abstract class ObjectModelElement {
     /** Does this model element require time groups */
     public boolean useTimeGroup() { return false; }
 
+    /** Does this model come with a prescribed normalisation calculation? */
+    public boolean usePrescribedNormalisation() { return true; }
+
 }
