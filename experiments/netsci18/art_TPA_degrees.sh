@@ -30,5 +30,5 @@ END {
 
 rm $script4
 
-gnuplot experiments/netsci18/BAplot.gnu > experiments/netsci18/TPAheatmap.eps
-epstopdf experiments/netsci18/BAheatmap.eps
+gnuplot experiments/netsci18/TPAplot.gnu > experiments/netsci18/TPAheatmap.eps
+epstopdf experiments/netsci18/TPAheatmap.eps

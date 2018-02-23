@@ -1,6 +1,6 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>experiments/netsci18/TPAgrown.dat</GraphInput>
+        <GraphInput>experiments/netsci18/degpowgrown.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <IgnoreDuplicates>true</IgnoreDuplicates>
         <Complex>false</Complex>
@@ -8,8 +8,8 @@
     <Action>
         <Type>Measure</Type>
         <FinalDegreeDistribution>true</FinalDegreeDistribution>
-        <ToFile>experiments/netsci18/TPAdegrees.dat</ToFile>
+        <ToFile>experiments/netsci18/degpowdegrees.dat</ToFile>
         <Start>1</Start>
-        <Interval>10</Interval>
+        <Interval>100</Interval>
     </Action>
 </FetaOptions>
