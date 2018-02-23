@@ -10,7 +10,7 @@ java -jar feta2-1.0.0.jar $script2 > experiments/netsci18/BAmeasurements.dat
 
 cut -d " " -f -1000 $script3 > $script4
 
-# Need to transpose the bloody thing
+# Need to transpose the thing
 awk '
 {
     for (i=1; i<=NF; i++)  {
