@@ -930,9 +930,11 @@ public class Network {
 
     public void printDegDist(BufferedWriter writer) {
         try {
-            for(int i = 1; i < inDegreeDistrib_.length; i++){
-                writer.write(inDegreeDistrib_[i]+" ");
+            for(int i = 1; i < inDegreeDistrib_.length; i++) {
+                writer.write(inDegreeDistrib_[i] + " ");
+                writer.flush();
             }
+            writer.flush();
             writer.newLine();
     } catch (IOException e) {
             System.err.println("File writer error");

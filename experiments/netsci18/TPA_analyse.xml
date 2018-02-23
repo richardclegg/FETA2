@@ -1,0 +1,15 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>experiments/TPAexperiment.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <IgnoreDuplicates>true</IgnoreDuplicates>
+        <Complex>false</Complex>
+    </DataFile>
+    <Action>
+        <Type>Measure</Type>
+        <FinalDegreeDistribution>true</FinalDegreeDistribution>
+        <ToFile>experiments/TPA_degrees.dat</ToFile>
+        <Start>1</Start>
+        <Interval>10</Interval>
+    </Action>
+</FetaOptions>

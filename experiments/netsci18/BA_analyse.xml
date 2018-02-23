@@ -1,0 +1,15 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>experiments/netsci18/BAgrown.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <IgnoreDuplicates>true</IgnoreDuplicates>
+        <Complex>false</Complex>
+    </DataFile>
+    <Action>
+        <Type>Measure</Type>
+        <FinalDegreeDistribution>true</FinalDegreeDistribution>
+        <ToFile>experiments/netsci18/BAdegrees.dat</ToFile>
+        <Start>1</Start>
+        <Interval>100</Interval>
+    </Action>
+</FetaOptions>

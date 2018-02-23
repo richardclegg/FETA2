@@ -7,10 +7,10 @@
 *.iml
 *.dat
 *.pdf
+*.eps
 
 #docs dir
 docs
-experiments
 out
 classes
 .idea

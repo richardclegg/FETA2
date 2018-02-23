@@ -1,0 +1,14 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>data/enron.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>false</Complex>
+    </DataFile>
+    <Action>
+        <Type>Measure</Type>
+        <FinalDegreeDistribution>true</FinalDegreeDistribution>
+        <ToFile>experiments/enrondegrees.dat</ToFile>
+        <Start>932639220</Start>
+        <Interval>100000</Interval>
+    </Action>
+</FetaOptions>

@@ -1,0 +1,15 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>experiments/degtri_ex.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <IgnoreDuplicates>true</IgnoreDuplicates>
+        <Complex>false</Complex>
+    </DataFile>
+    <Action>
+        <Type>Measure</Type>
+        <FinalDegreeDistribution>true</FinalDegreeDistribution>
+        <ToFile>experiments/degtridegrees.dat</ToFile>
+        <Start>1</Start>
+        <Interval>10</Interval>
+    </Action>
+</FetaOptions>
