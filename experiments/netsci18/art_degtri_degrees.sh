@@ -1,15 +1,15 @@
 #!/bin/bash
 
-script1=experiments/netsci18/rankgrow.xml
-script2=experiments/netsci18/rank_analyse.xml
-script3=experiments/netsci18/rankdegrees.dat
+script1=experiments/netsci18/degtri_grow.xml
+script2=experiments/netsci18/degtri_analyse.xml
+script3=experiments/netsci18/degtridegrees.dat
 script4=experiments/netsci18/tmp.dat
-script5=experiments/netsci18/grownrank.tmp
+tmp=experiments/netsci18/degtrigrown.dat
 
-rm -f $script3 $script5
+rm -f $tmp $script3
 
 java -jar feta2-1.0.0.jar $script1
-java -jar feta2-1.0.0.jar $script2 > experiments/netsci18/RPmeasurements.dat
+java -jar feta2-1.0.0.jar $script2 > experiments/netsci18/degtrimeasurements.dat
 
 cut -d " " -f -999 $script3 > $script4
 
@@ -33,4 +33,4 @@ END {
 
 rm $script4
 
-gnuplot experiments/netsci18/RPplot.gnu > experiments/netsci18/RPreverseheatmap.eps
+gnuplot experiments/netsci18/degtriplot.gnu > experiments/netsci18/degtriheatmap-1-50.eps

@@ -59,7 +59,7 @@ public int getDegreeTrichotomy(int degree){
     }
     else if(lowerDegree <= degree && degree <= upperDegree){
         degTrichotomy = degree;}
-        else{degTrichotomy = degree;}
+        else{degTrichotomy = upperDegree;}
         return degTrichotomy;
     }
 /** Calculate the normalisation constant */

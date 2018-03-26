@@ -1,6 +1,6 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>experiments/degtri_ex.dat</GraphInput>
+        <GraphInput>experiments/netsci18/degtrigrown.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <IgnoreDuplicates>true</IgnoreDuplicates>
         <Complex>false</Complex>
@@ -8,8 +8,8 @@
     <Action>
         <Type>Measure</Type>
         <FinalDegreeDistribution>true</FinalDegreeDistribution>
-        <ToFile>experiments/degtridegrees.dat</ToFile>
+        <ToFile>experiments/netsci18/degtridegrees.dat</ToFile>
         <Start>1</Start>
-        <Interval>10</Interval>
+        <Interval>100</Interval>
     </Action>
 </FetaOptions>

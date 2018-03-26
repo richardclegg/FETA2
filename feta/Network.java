@@ -96,7 +96,7 @@ public class Network {
     public int []hotNodes_= null;
     public int hotPos_;  // Implement as ring buffer
 
-    public int timeGroupInterval_ = 20; // size of each time group
+    public int timeGroupInterval_ = 200; // size of each time group
     
     public int maxHotNodes_= 0;
     public boolean trackHot_= false;
@@ -971,7 +971,6 @@ public class Network {
 
     /** In which time group is a given node?*/
     public int timeGroup(int node){
-        timeGroupInterval_ = 20;
         int tg = node/timeGroupInterval_ + 1;
         return tg;
     }
@@ -1033,7 +1032,7 @@ public class Network {
         }
         if (noLinks_ > 0) {
             clusterCoeff_/= noNodes_;
-            meanOutDegSq_/= noLinks_;
+            meanOutDegSq_/= noNodes_;
             meanInDegSq_/= noLinks_;
             assortIn_= calcAssort(largestInDegree_,true);
             if (directedNetwork_) {

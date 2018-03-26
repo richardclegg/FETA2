@@ -4,6 +4,9 @@ script1=experiments/netsci18/TPAgrow.xml
 script2=experiments/netsci18/TPA_analyse.xml
 script3=experiments/netsci18/TPAdegrees.dat
 script4=experiments/netsci18/tmp.dat
+script5=experiments/netsci18/TPAgrown.dat
+
+rm -f $script3 $script5
 
 java -jar feta2-1.0.0.jar $script1
 java -jar feta2-1.0.0.jar $script2 > experiments/netsci18/TPAmeasurements.dat

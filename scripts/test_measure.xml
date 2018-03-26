@@ -1,14 +1,14 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>data/facebook.dat</GraphInput>
+        <GraphInput>experiments/netsci18/BAgrown.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
     </DataFile>
     <Action>
         <Type>Measure</Type>
         <FinalDegreeDistribution>true</FinalDegreeDistribution>
-        <ToFile>experiments/facebookdegreees.dat</ToFile>
-        <Start>1165289308</Start>
-        <Interval>100000</Interval>
+        <ToFile>experiments/netsci18/BAsummarydegrees.dat</ToFile>
+        <Start>1</Start>
+        <Interval>10</Interval>
     </Action>
 </FetaOptions>
