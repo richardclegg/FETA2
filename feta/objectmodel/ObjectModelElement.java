@@ -32,8 +32,6 @@ public abstract class ObjectModelElement {
     
     /**Calculate the normalisation constant */
     abstract public void calcNormalisation(Network net);
-    
-
         
     /**Calculate the normalisation constant excluding given node */
     abstract public void calcNormalisationFrom(Network net, int [] from);
@@ -69,8 +67,5 @@ public abstract class ObjectModelElement {
 
     /** Does this model element require time groups */
     public boolean useTimeGroup() { return false; }
-
-    /** Does this model come with a prescribed normalisation calculation? */
-    public boolean usePrescribedNormalisation() { return true; }
 
 }

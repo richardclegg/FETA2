@@ -18,7 +18,7 @@ public class RankPreferenceElement extends ObjectModelElement {
 
     public boolean useInDegree(){ return false; }
 
-    public boolean useRank() { return true; }
+    public boolean useRank() { return false; }
 
     public int [] getTrackingRequirements()
     {
@@ -99,7 +99,5 @@ public class RankPreferenceElement extends ObjectModelElement {
             prob =  Math.pow(nodeNo+1, -power)*normalise_;
         }
         return prob;
-
     }
-
 }

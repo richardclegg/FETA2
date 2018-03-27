@@ -526,6 +526,13 @@ public class FetaOptions {
             throw e;
         } catch (XMLNoTagException e) {
         }
+        try {
+            om.lazyNormalise_ = ReadXMLUtils.parseSingleBool(node, "LazyNormalise", "ObjectModel", true);
+            ReadXMLUtils.removeNode(node, "LazyNormalise", "ObjectModel");
+        } catch (SAXException e) {
+            throw e;
+        } catch (XMLNoTagException e) {
+        }
         NodeList nl=((Element)node).getElementsByTagName("Element");
         if (nl.getLength() == 0) {
             throw new SAXException("ObjectModel tags must have at least one Element tag");

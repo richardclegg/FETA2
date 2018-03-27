@@ -3,7 +3,7 @@
         <GraphOutput>experiments/netsci18/rankBAtmp.tmp</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
-        <Complex>false</Complex>
+        <Complex>true</Complex>
     </DataFile>
     <Action>
         <Type>Grow</Type>
@@ -24,15 +24,16 @@
         </Element>
     </ObjectModel>
     <ObjectModel>
+        <LazyNormalise>true</LazyNormalise>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>1</Weight>
+            <Weight>0</Weight>
         </Element>
         <Element>
             <Type>feta.objectmodel.RankPreferenceElement</Type>
-            <Weight>0</Weight>
+            <Weight>1.0</Weight>
             <Power>0.5</Power>
         </Element>
     </ObjectModel>

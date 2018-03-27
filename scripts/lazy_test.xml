@@ -1,9 +1,10 @@
 <FetaOptions>
     <DataFile>
-        <GraphOutput>experiments/netsci18/rankBAtmp.tmp</GraphOutput>
+        <GraphOutput>test.dat</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>true</Complex>
+        <IgnoreDuplicates>true</IgnoreDuplicates>
     </DataFile>
     <Action>
         <Type>Grow</Type>
@@ -12,15 +13,15 @@
     <OperationModel>
         <Cliques>false</Cliques>
         <Type>feta.operationmodel.PreferentialAttachment</Type>
-        <MaxNodes>1000</MaxNodes>
-        <AddNodes>3</AddNodes>
+        <MaxNodes>500</MaxNodes>
     </OperationModel>
     <ObjectModel>
         <Entity>Link</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.DegreeModelElement</Type>
+            <Type>feta.objectmodel.RankPreferenceElement</Type>
             <Weight>1.0</Weight>
+            <Power>0.3333</Power>
         </Element>
     </ObjectModel>
     <ObjectModel>
@@ -29,12 +30,7 @@
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>AAA</Weight>
-        </Element>
-        <Element>
-            <Type>feta.objectmodel.RankPreferenceElement</Type>
-            <Weight>BBB</Weight>
-            <Power>0.5</Power>
+            <Weight>1.0</Weight>
         </Element>
     </ObjectModel>
 </FetaOptions>

@@ -2,7 +2,7 @@
     <DataFile>
         <GraphInput>experiments/netsci18/rankBAtmp.tmp</GraphInput>
         <FormatRead>NNT</FormatRead>
-        <Complex>false</Complex>
+        <Complex>true</Complex>
     </DataFile>
     <Action>
         <Type>Likelihood</Type>
@@ -18,20 +18,21 @@
         <Entity>Link</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.DegreeModelElement</Type>
+            <Type>feta.objectmodel.RandomModelElement</Type>
             <Weight>1.0</Weight>
         </Element>
     </ObjectModel>
     <ObjectModel>
+        <LazyNormalise>true</LazyNormalise>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>0.99</Weight>
+            <Weight>0.01</Weight>
         </Element>
         <Element>
             <Type>feta.objectmodel.RankPreferenceElement</Type>
-            <Weight>.01</Weight>
+            <Weight>.99</Weight>
             <Power>0.5</Power>
         </Element>
     </ObjectModel>
