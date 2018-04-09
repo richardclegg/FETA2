@@ -1,13 +1,13 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>experiments/netsci18/BAgrown.dat</GraphInput>
+        <GraphInput>experiments/netsci18/BAstatic.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <IgnoreDuplicates>true</IgnoreDuplicates>
-        <Complex>false</Complex>
+        <Complex>true</Complex>
     </DataFile>
     <Action>
         <Type>Measure</Type>
-        <FinalDegreeDistribution>true</FinalDegreeDistribution>
+        <DegreeDistribution>true</DegreeDistribution>
         <ToFile>experiments/netsci18/BAdegrees.dat</ToFile>
         <Start>1</Start>
         <Interval>100</Interval>

@@ -1,9 +1,9 @@
 <FetaOptions>
     <DataFile>
-        <GraphOutput>experiments/netsci18/BAgrown.dat</GraphOutput>
+        <GraphOutput>experiments/netsci18/BAstatic.dat</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
-        <Complex>false</Complex>
+        <Complex>true</Complex>
     </DataFile>
     <Action>
         <Type>Grow</Type>
@@ -24,6 +24,7 @@
         </Element>
     </ObjectModel>
     <ObjectModel>
+        <LazyNormalise>true</LazyNormalise>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>

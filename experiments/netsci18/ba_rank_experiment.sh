@@ -8,7 +8,7 @@ tmp3=experiments/netsci18/rankBAtmp.tmp
 result=experiments/netsci18/rankBAresult.tmp
 finalres=experiments/netsci18/rankBAfinal.out
 
-rm -f $tmp1 $tmp2 $tmp3 $finalres
+rm -f $tmp1 $tmp2 $tmp3 $result $finalres
 
 for a in `seq 0.0 0.2 1.0`
 do

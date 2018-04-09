@@ -23,16 +23,16 @@
         </Element>
     </ObjectModel>
     <ObjectModel>
-        <LazyNormalise>true</LazyNormalise>
+        <LazyNormalise>false</LazyNormalise>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>0.01</Weight>
+            <Weight>0.3</Weight>
         </Element>
         <Element>
             <Type>feta.objectmodel.RankPreferenceElement</Type>
-            <Weight>.99</Weight>
+            <Weight>.7</Weight>
             <Power>0.5</Power>
         </Element>
     </ObjectModel>

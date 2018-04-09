@@ -3,7 +3,6 @@
         <GraphOutput>test.dat</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
-        <Complex>true</Complex>
         <IgnoreDuplicates>true</IgnoreDuplicates>
     </DataFile>
     <Action>
@@ -13,7 +12,7 @@
     <OperationModel>
         <Cliques>false</Cliques>
         <Type>feta.operationmodel.PreferentialAttachment</Type>
-        <MaxNodes>500</MaxNodes>
+        <MaxNodes>1000</MaxNodes>
     </OperationModel>
     <ObjectModel>
         <Entity>Link</Entity>
@@ -29,7 +28,7 @@
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.DegreeModelElement</Type>
+            <Type>feta.objectmodel.RandomModelElement</Type>
             <Weight>1.0</Weight>
         </Element>
     </ObjectModel>

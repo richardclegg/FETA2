@@ -18,7 +18,7 @@ public class RankPreferenceElement extends ObjectModelElement {
 
     public boolean useInDegree(){ return false; }
 
-    public boolean useRank() { return false; }
+    public boolean useRank() { return true; }
 
     public int [] getTrackingRequirements()
     {
@@ -63,7 +63,7 @@ public class RankPreferenceElement extends ObjectModelElement {
         }
 
         for(int j = 0; j < from.length; j++){
-            total -= Math.pow(from[j],-power);
+            total -= Math.pow(from[j]+1,-power);
         }
 
         if (total == 0.0){

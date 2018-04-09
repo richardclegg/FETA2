@@ -59,7 +59,7 @@ public class FetaOptions {
     public int actionInterval_= 1;   // Interval for action
     public long actionStartTime_= 0;  // Start time for action
     public long actionStopTime_= Long.MAX_VALUE;   // Stop time for action
-    public boolean finalDegDist_= false;
+    public boolean measureDegDist_= false;
     public String degDistToFile_= null;
     public int maxLinks_= Integer.MAX_VALUE;
     public int maxNodes_= Integer.MAX_VALUE;
@@ -400,8 +400,8 @@ public class FetaOptions {
 
         //Final degree distribution?
         try {
-            finalDegDist_= ReadXMLUtils.parseSingleBool(node, "FinalDegreeDistribution", "Action", true);
-            ReadXMLUtils.removeNode(node,"FinalDegreeDistribution","Action");
+            measureDegDist_= ReadXMLUtils.parseSingleBool(node, "DegreeDistribution", "Action", true);
+            ReadXMLUtils.removeNode(node,"DegreeDistribution","Action");
         } catch (SAXException e) {
             throw e;
         } catch (XMLNoTagException e) {
@@ -529,6 +529,9 @@ public class FetaOptions {
         try {
             om.lazyNormalise_ = ReadXMLUtils.parseSingleBool(node, "LazyNormalise", "ObjectModel", true);
             ReadXMLUtils.removeNode(node, "LazyNormalise", "ObjectModel");
+            if (om.lazyNormalise_ == true) {
+                complexNetwork_ = true;
+            }
         } catch (SAXException e) {
             throw e;
         } catch (XMLNoTagException e) {

@@ -23,7 +23,7 @@
         </Element>
     </ObjectModel>
     <ObjectModel>
-        <LazyNormalise>true</LazyNormalise>
+        <LazyNormalise>false</LazyNormalise>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>

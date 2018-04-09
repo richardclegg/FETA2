@@ -1,9 +1,9 @@
 <FetaOptions>
     <DataFile>
-        <GraphOutput>experiments/grownrank.tmp</GraphOutput>
+        <GraphOutput>experiments/netsci18/grownrank.tmp</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
-        <Complex>false</Complex>
+        <Complex>true</Complex>
     </DataFile>
     <Action>
         <Type>Grow</Type>
@@ -12,7 +12,7 @@
     <OperationModel>
         <Cliques>false</Cliques>
         <Type>feta.operationmodel.PreferentialAttachment</Type>
-        <MaxNodes>100000</MaxNodes>
+        <MaxNodes>10000</MaxNodes>
         <AddNodes>3</AddNodes>
     </OperationModel>
     <ObjectModel>
@@ -25,12 +25,13 @@
         </Element>
     </ObjectModel>
     <ObjectModel>
+        <LazyNormalise>true</LazyNormalise>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.RankPreferenceElement</Type>
+            <Power>0.5</Power>
             <Weight>1.0</Weight>
-            <Power>0.33333</Power>
         </Element>
     </ObjectModel>
 </FetaOptions>

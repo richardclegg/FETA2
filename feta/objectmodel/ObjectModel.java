@@ -97,7 +97,7 @@ public class ObjectModel {
             //System.out.println("Calc probability");
             if (Math.abs(1.0 - totWeight) > 0.000001) {
                 System.err.println("Object model, weight does not total to 1 "+totWeight
-                    +" "+from+" "+noNodes);
+                    +" "+from+" "+noNodes+" "+net.noNodes_);
 
                 System.exit(-1);
             }
@@ -122,22 +122,31 @@ public class ObjectModel {
     private int []getTheNodes(FetaElement fe,Network net, int noNodes)
     {
         int []nodes= new int[noNodes];
+        int[] apartFrom = new int[noNodes];
+        Arrays.fill(apartFrom,-1);
         int n;
         double totProb=1.0;
         double probUsed=0.0;
         for (int i= 0; i < noNodes; i++) {
             while(true) {
-                n= getReadiedNode(net);
-//                int j;
-//                for (j= 0; j < i; j++) {
-//                    if (n == nodes[j]) {
-//                        break;
-//                    }
-//                }
-//                if (j == i) {
-                    nodes[i]= n;
+                n= getReadiedNode(net, apartFrom);
+                apartFrom[i] = n;
+                if(true) {
+                    int j = 0;
+                    for (j = 0; j < i; j++) {
+                        if (n == nodes[j]) {
+                            break;
+                        }
+                    }
+                    if (j == i) {
+                        nodes[i] = n;
+                        break;
+                    }
+                }
+                else {
+                    nodes[i] = n;
                     break;
-                //}
+                }
            }
            double prob= calcProbability(n,net,false);
            totProb*= prob/(1.0-probUsed);
@@ -147,10 +156,11 @@ public class ObjectModel {
         return nodes;
     }
     
-    private int getReadiedNode(Network net)
+    private int getReadiedNode(Network net, int[] apartFrom)
     {
         if(lazyNormalise_) {
-            return getReadiedNodeLazy(net);
+            int node = getReadiedNodeLazy(net, apartFrom);
+            return node;
         }
         double weightSoFar= 0.0;
         NodeSet lns= null;
@@ -172,20 +182,38 @@ public class ObjectModel {
     }
 
     /** getReadiedNode but lazier */
-    public int getReadiedNodeLazy(Network net)
+    public int getReadiedNodeLazy(Network net, int[] apartFrom)
     {
+        ArrayList <Integer> nodeList = new ArrayList<Integer>();
+        for (int j = 0; j< net.noNodes_; j++) {
+            nodeList.add(j);
+        }
+        //System.out.println(nodeList);
+        // Remove nodes which have already been chosen in this iteration
+        Arrays.sort(apartFrom);
+        int numChosen = 0;
+        for (int k = apartFrom.length - 1; k >= 0; k--) {
+            if(apartFrom[k]>= 0) {
+                nodeList.remove(apartFrom[k]);
+                numChosen++;
+            }
+        }
+
+        //System.out.println(nodeList);
+
         double weightSoFar = 0.0;
         double r = Math.random();
+        normaliseFrom(net, Arrays.copyOfRange(apartFrom, apartFrom.length - numChosen, apartFrom.length));
         int i;
-        for( i = 0; i < net.noNodes_; i++) {
-            double p = calcProbability(i, net, false);
+        for( i = 0; i < nodeList.size(); i++) {
+            double p = calcProbability(nodeList.get(i), net, false);
             if(p == 0)
                 continue;
             weightSoFar+= p;
             if(weightSoFar > r)
                 break;
         }
-        return i;
+        return nodeList.get(i);
     }
 
     /** Alternative routine for lazily getting nodes without nodesets */
@@ -196,20 +224,24 @@ public class ObjectModel {
         int availableNodeCount= 0;
         double totWeight= 0.0;
 
-        for (int i=0; i< net.noNodes_; i++) {
-            double probability_ = calcProbability(i, net, true);
-            if(probability_ > 0.0) {
-                availableNodeCount++;
-                totWeight += probability_;
+        // If we've had no trouble growing network size to 100, then we can probably stop checking this.
+        if(net.noNodes_ < 100) {
+            for (int i = 0; i < net.noNodes_; i++) {
+                double probability_ = calcProbability(i, net, true);
+                if (probability_ > 0.0) {
+                    availableNodeCount++;
+                    totWeight += probability_;
+                }
+            }
+            if (Math.abs(totWeight - 1.0) > 0.00001) {
+                System.err.println("Object model, weight " + totWeight + " does not total to 1 " + net.noNodes_);
+                System.exit(-1);
+            }
+            if (availableNodeCount < noNodes) {
+                noNodes = availableNodeCount;
             }
         }
-        if (Math.abs(totWeight - 1.0) > 0.00001) {
-            System.err.println("Object model, weight " + totWeight + " does not total to 1 "+net.noNodes_);
-            System.exit(-1);
-        }
-        if (availableNodeCount < noNodes) {
-            noNodes = availableNodeCount;
-        }
+
         int[] n = getTheNodes(fe, net, noNodes);
         return n;
     }

@@ -49,8 +49,8 @@ public class Network {
     public long nextMeasureTime_= -1;
     // Interval between measurements
     private int interval_= 1;
-    // Save final degree distribution?
-    private boolean finalDegDist_;
+    // Measure degree distribution?
+    private boolean measureDegDist_;
     // Location of final degree distribution to save
     private String degDistFile_;
     private BufferedWriter outputWriter;
@@ -110,7 +110,7 @@ public class Network {
         if (opt.fetaAction_ == FetaOptions.ACTION_MEASURE) {
             nextMeasureTime_= opt.actionStartTime_;
             interval_= opt.actionInterval_;
-            finalDegDist_= opt.finalDegDist_;
+            measureDegDist_= opt.measureDegDist_;
             degDistFile_ = opt.degDistToFile_;
             //System.out.println("Measure "+nextMeasureTime_+" "+interval_);
         } else {
@@ -905,7 +905,7 @@ public class Network {
             System.out.println("#time Nodes links maxInDeg maxOutDeg CC "+
                 "SingIn SingOut DoubIn DoubOut InDegSq OutDegSq InAssort OutAssort");
 
-            if(finalDegDist_) {
+            if(measureDegDist_) {
                 try {
                     outputWriter = new BufferedWriter(new FileWriter(degDistFile_));
                 } catch (IOException e){
@@ -917,7 +917,7 @@ public class Network {
         }
         if (changed) {
             calcStats();
-            if(finalDegDist_) {
+            if(measureDegDist_) {
                 printDegDist(outputWriter);
             }
         }
@@ -1033,7 +1033,7 @@ public class Network {
         if (noLinks_ > 0) {
             clusterCoeff_/= noNodes_;
             meanOutDegSq_/= noNodes_;
-            meanInDegSq_/= noLinks_;
+            meanInDegSq_/= noNodes_;
             assortIn_= calcAssort(largestInDegree_,true);
             if (directedNetwork_) {
                 assortOut_= calcAssort(largestOutDegree_,false);
@@ -1075,7 +1075,9 @@ public class Network {
                 } else {
                     links2= outLinks_.get(l);
                 }
+                // Source degree
                 srcDeg= links1.length;
+                // Destination degree
                 dstDeg= links2.length;
                 assSum+=srcDeg+dstDeg;
                 assProd+= (srcDeg*dstDeg);

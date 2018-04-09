@@ -7,9 +7,9 @@
     </DataFile>
     <Action>
         <Type>Measure</Type>
-        <FinalDegreeDistribution>true</FinalDegreeDistribution>
+        <DegreeDistribution>true</DegreeDistribution>
         <ToFile>experiments/netsci18/TPAdegrees.dat</ToFile>
         <Start>1</Start>
-        <Interval>10</Interval>
+        <Interval>100</Interval>
     </Action>
 </FetaOptions>
