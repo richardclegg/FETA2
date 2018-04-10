@@ -205,6 +205,18 @@ public class ObjectModel {
         double r = Math.random();
         normaliseFrom(net, Arrays.copyOfRange(apartFrom, apartFrom.length - numChosen, apartFrom.length));
         int i;
+        // Check that I've done the right normalisation.
+        if (net.noNodes_< 20 )
+        {
+            double pcheck = 0.0;
+            for (int l = 0; l < nodeList.size(); l++) {
+                pcheck += calcProbability(nodeList.get(l), net, false);
+            }
+            if (Math.abs(pcheck - 1) > 0.001) {
+                System.err.println(" Eek! Probabilities not normalised");
+                System.exit(-1);
+            }
+        }
         for( i = 0; i < nodeList.size(); i++) {
             double p = calcProbability(nodeList.get(i), net, false);
             if(p == 0)

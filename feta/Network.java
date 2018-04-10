@@ -96,7 +96,7 @@ public class Network {
     public int []hotNodes_= null;
     public int hotPos_;  // Implement as ring buffer
 
-    public int timeGroupInterval_ = 200; // size of each time group
+    public int timeGroupInterval_ = 500; // size of each time group
     
     public int maxHotNodes_= 0;
     public boolean trackHot_= false;
@@ -1084,8 +1084,8 @@ public class Network {
                 assSq+= (srcDeg*srcDeg)+(dstDeg*dstDeg);
             }
         }
-        double assNum= (double)assProd/noLinks_ - ((double)assSum*assSum/(noLinks_*noLinks_*4.0));
-        double assDen= (double)assSq/(noLinks_*2.0) - ((double)assSum*assSum/(noLinks_*noLinks_*4.0));
+        double assNum= (double)assProd*2.0/noLinks_ - (((double)assSum/noLinks_)*((double)assSum/noLinks_));
+        double assDen= (double)assSq/(noLinks_) - ((double)assSum/noLinks_)*((double)assSum/noLinks_);
         if (assDen == 0.0)
             return 0.0;
         return assNum/assDen;

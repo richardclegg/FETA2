@@ -6,8 +6,7 @@
     </DataFile>
     <Action>
         <Type>Measure</Type>
-        <FinalDegreeDistribution>true</FinalDegreeDistribution>
-        <ToFile>experiments/netsci18/BAsummarydegrees.dat</ToFile>
+        <DegreeDistribution>false</DegreeDistribution>
         <Start>1</Start>
         <Interval>10</Interval>
     </Action>

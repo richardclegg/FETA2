@@ -28,8 +28,8 @@
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.DegreeTrichotomyElement</Type>
-            <LowerDegree>10</LowerDegree>
-            <UpperDegree>50</UpperDegree>
+            <LowerDegree>1</LowerDegree>
+            <UpperDegree>1</UpperDegree>
             <Weight>1.0</Weight>
         </Element>
     </ObjectModel>
