@@ -1,6 +1,6 @@
 <FetaOptions>
     <DataFile>
-        <GraphOutput>experiments/netsci18/grownrank.tmp</GraphOutput>
+        <GraphOutput>experiments/netsci18/grownranktest.tmp</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>true</Complex>
@@ -12,7 +12,7 @@
     <OperationModel>
         <Cliques>false</Cliques>
         <Type>feta.operationmodel.PreferentialAttachment</Type>
-        <MaxNodes>100000</MaxNodes>
+        <MaxNodes>10000</MaxNodes>
         <AddNodes>3</AddNodes>
     </OperationModel>
     <ObjectModel>

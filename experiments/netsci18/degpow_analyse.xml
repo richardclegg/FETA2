@@ -1,14 +1,14 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>experiments/netsci18/degpowgrown.dat</GraphInput>
+        <GraphInput>experiments/netsci18/degpowgrown2.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <IgnoreDuplicates>true</IgnoreDuplicates>
         <Complex>false</Complex>
     </DataFile>
     <Action>
         <Type>Measure</Type>
-        <FinalDegreeDistribution>true</FinalDegreeDistribution>
-        <ToFile>experiments/netsci18/degpowdegrees.dat</ToFile>
+        <DegreeDistribution>true</DegreeDistribution>
+        <ToFile>experiments/netsci18/degpowdegrees2.dat</ToFile>
         <Start>1</Start>
         <Interval>100</Interval>
     </Action>

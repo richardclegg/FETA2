@@ -1,6 +1,6 @@
 <FetaOptions>
     <DataFile>
-        <GraphOutput>experiments/netsci18/degpowgrown.dat</GraphOutput>
+        <GraphOutput>experiments/netsci18/degpowgrown2.dat</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
@@ -12,7 +12,7 @@
     <OperationModel>
         <Cliques>false</Cliques>
         <Type>feta.operationmodel.PreferentialAttachment</Type>
-        <MaxNodes>10000</MaxNodes>
+        <MaxNodes>100000</MaxNodes>
         <AddNodes>3</AddNodes>
     </OperationModel>
     <ObjectModel>
@@ -28,7 +28,7 @@
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.DegreePowModelElement</Type>
-            <Power>0.0</Power>
+            <Power>0.3</Power>
             <Weight>1.0</Weight>
         </Element>
     </ObjectModel>

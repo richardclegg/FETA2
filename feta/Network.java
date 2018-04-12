@@ -1055,9 +1055,9 @@ public class Network {
         }*/
         int []links1;
         int []links2;
-        int assSum= 0;
-        int assProd= 0;
-        int assSq= 0;
+        double assSum= 0;
+        double assProd= 0;
+        double assSq= 0;
         int srcDeg, dstDeg;
         for (int i= 0; i < noNodes_; i++) {
             
@@ -1079,13 +1079,14 @@ public class Network {
                 srcDeg= links1.length;
                 // Destination degree
                 dstDeg= links2.length;
-                assSum+=srcDeg+dstDeg;
-                assProd+= (srcDeg*dstDeg);
-                assSq+= (srcDeg*srcDeg)+(dstDeg*dstDeg);
+                assSum+=(1.0/noLinks_)*(srcDeg+dstDeg);
+                assProd+= (1.0/noLinks_)*(srcDeg*dstDeg);
+                assSq+= (1.0/noLinks_)*((srcDeg*srcDeg)+(dstDeg*dstDeg));
             }
         }
-        double assNum= (double)assProd*2.0/noLinks_ - (((double)assSum/noLinks_)*((double)assSum/noLinks_));
-        double assDen= (double)assSq/(noLinks_) - ((double)assSum/noLinks_)*((double)assSum/noLinks_);
+        double assNum= assProd*2.0 - assSum*assSum;
+
+        double assDen= assSq - assSum*assSum;
         if (assDen == 0.0)
             return 0.0;
         return assNum/assDen;

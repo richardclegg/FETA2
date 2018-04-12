@@ -10,6 +10,8 @@ rankmeasure=experiments/netsci18/rank_analyse.xml
 rankdegrees=experiments/netsci18/rankdegrees.dat
 res2=experiments/netsci18/ranksnap.dat
 
+
+
 #rm -f $res1 $res2 $badegrees $rankdegrees
 
 #echo 'Building BA network'
@@ -22,6 +24,7 @@ res2=experiments/netsci18/ranksnap.dat
 #java -jar feta2-1.0.0.jar $rankmeasure > experiments/netsci18/rankresults.dat
 
 awk '/./{line=$0} END{print line}' $badegrees > $res1
+awk '/./{line=$0} END{print line}' $rankdegrees > $res2
 awk '/./{line=$0} END{print line}' $rankdegrees > $res2
 
 awk '

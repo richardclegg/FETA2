@@ -1,0 +1,37 @@
+<FetaOptions>
+    <DataFile>
+        <GraphOutput>experiments/netsci18/grownapproxrank.tmp</GraphOutput>
+        <GraphInput>scripts/simple_start_graph.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>true</Complex>
+    </DataFile>
+    <Action>
+        <Type>Grow</Type>
+        <Start>10</Start>
+    </Action>
+    <OperationModel>
+        <Cliques>false</Cliques>
+        <Type>feta.operationmodel.PreferentialAttachment</Type>
+        <MaxNodes>100000</MaxNodes>
+        <AddNodes>3</AddNodes>
+    </OperationModel>
+    <ObjectModel>
+        <Entity>Link</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.RankPreferenceElement</Type>
+            <Weight>1.0</Weight>
+            <Power>0.3333333</Power>
+        </Element>
+    </ObjectModel>
+    <ObjectModel>
+        <LazyNormalise>true</LazyNormalise>
+        <Entity>Node</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.RankApproxElement</Type>
+            <Power>0.5</Power>
+            <Weight>1.0</Weight>
+        </Element>
+    </ObjectModel>
+</FetaOptions>

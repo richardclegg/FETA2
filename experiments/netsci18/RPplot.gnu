@@ -12,4 +12,4 @@ set ylabel "Degree"
 set cblabel "Frequency"
 set title "Time-degree frequency plot of RP network"
 set view map
-splot "experiments/netsci18/rankdegrees.dat" matrix with image
+splot "experiments/netsci18/rankdegrees1.dat" matrix with image

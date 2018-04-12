@@ -1,0 +1,13 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>data/cit-HepPh.txt</GraphInput>
+        <FormatRead>NN</FormatRead>
+        <Complex>true</Complex>
+    </DataFile>
+    <Action>
+        <Type>Measure</Type>
+        <DegreeDistribution>false</DegreeDistribution>
+        <Start>1</Start>
+        <Interval>500</Interval>
+    </Action>
+</FetaOptions>
