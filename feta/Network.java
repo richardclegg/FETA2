@@ -81,7 +81,7 @@ public class Network {
     // mean square of out degree
     private double meanOutDegSq_= 0.0;
     // mean square of in degree
-    private double meanInDegSq_= 0.0;
+    public double meanInDegSq_= 0.0;
     // assortivity
     private double assortIn_;
     private double assortOut_;
@@ -114,7 +114,7 @@ public class Network {
             degDistFile_ = opt.degDistToFile_;
             //System.out.println("Measure "+nextMeasureTime_+" "+interval_);
         } else {
-            nextMeasureTime_= -1;
+            nextMeasureTime_ = -1;
         }
     }
     
@@ -976,7 +976,7 @@ public class Network {
     }
     
     /** Calculate all network statistics*/
-    private void calcStats()
+    public void calcStats()
     {
         largestInDegree_= 0;
         largestOutDegree_= 0;

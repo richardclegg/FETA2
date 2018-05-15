@@ -1,15 +1,15 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>experiments/netsci18/rankBAtmp.tmp</GraphInput>
+        <GraphInput>experiments/netsci18/BAgrown.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
-        <FetaOutput>fetafile.feta</FetaOutput>
         <FetaFormatWrite>ASCII</FetaFormatWrite>
     </DataFile>
     <Action>
         <Type>Likelihood</Type>  
         <Interval>1</Interval>
         <Start>11</Start>
+        <Stop>100</Stop>
     </Action>
     <OperationModel>
     </OperationModel>
@@ -17,24 +17,16 @@
         <Entity>Link</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.RandomModelElement</Type>
-            <Weight>2.0</Weight>
-        </Element>
-        <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>1.4</Weight>
+            <Weight>1.0</Weight>
         </Element>
     </ObjectModel>
         <ObjectModel>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.RandomModelElement</Type>
-            <Weight>2.0</Weight>
-        </Element>
-        <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>1.4</Weight>
+            <Weight>1.0</Weight>
         </Element>
     </ObjectModel>
 </FetaOptions>

@@ -2,7 +2,7 @@
 
 script1=experiments/netsci18/BAgrow.xml
 script2=experiments/netsci18/BA_analyse.xml
-script3=experiments/netsci18/BAdegrees.dat
+script3=experiments/netsci18/BAdegrees-3-10000.dat
 script4=experiments/netsci18/tmp.dat
 
 java -jar feta2-1.0.0.jar $script1

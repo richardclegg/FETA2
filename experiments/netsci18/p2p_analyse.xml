@@ -1,0 +1,15 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>data/p2p-Gnutella31.txt</GraphInput>
+        <FormatRead>NN</FormatRead>
+        <IgnoreDuplicates>true</IgnoreDuplicates>
+        <Complex>false</Complex>
+    </DataFile>
+    <Action>
+        <Type>Measure</Type>
+        <DegreeDistribution>true</DegreeDistribution>
+        <ToFile>experiments/netsci18/p2pdegrees.dat</ToFile>
+        <Start>1</Start>
+        <Interval>100</Interval>
+    </Action>
+</FetaOptions>

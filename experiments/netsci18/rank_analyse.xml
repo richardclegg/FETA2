@@ -1,6 +1,6 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>experiments/netsci18/grownrank.tmp</GraphInput>
+        <GraphInput>experiments/netsci18/rankgrown-3-10000.tmp</GraphInput>
         <FormatRead>NNT</FormatRead>
         <IgnoreDuplicates>true</IgnoreDuplicates>
         <Complex>true</Complex>
@@ -8,7 +8,7 @@
     <Action>
         <Type>Measure</Type>
         <DegreeDistribution>true</DegreeDistribution>
-        <ToFile>experiments/netsci18/rankdegrees.dat</ToFile>
+        <ToFile>experiments/netsci18/rankdegrees-3-10000.dat</ToFile>
         <Start>1</Start>
         <Interval>100</Interval>
     </Action>

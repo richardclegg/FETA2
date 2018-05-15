@@ -29,11 +29,11 @@
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>0</Weight>
+            <Weight>1</Weight>
         </Element>
         <Element>
             <Type>feta.objectmodel.RankPreferenceElement</Type>
-            <Weight>1.0</Weight>
+            <Weight>0</Weight>
             <Power>0.5</Power>
         </Element>
     </ObjectModel>

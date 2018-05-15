@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import sys
 import operator
@@ -30,12 +30,12 @@ for a in [0, 0.2, 0.4, 0.6, 0.8, 1.0]:
     amean = asum / 10.0
     adev = 0.0
     for row in tempnew:
-        adev = math.pow((amean - row['guess']),2)
+        adev += math.pow((amean - row['guess']),2)
     adev = math.sqrt(adev)
     errorbars.append(dict(beta=a, amean=amean, adev=adev))
 
 basename = os.path.basename(filename)
-resultname = 'errorbars.txt'
+resultname = 'errorbars-10000-1.txt'
 
 with open(resultname, 'w') as f:
     for row in errorbars:

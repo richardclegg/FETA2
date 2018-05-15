@@ -15,4 +15,4 @@ END {
         }
         print str
     }
-}' experiments/netsci18/ranksnap.dat > experiments/netsci18/ranktransp.dat
+}' experiments/netsci18/rankerrorsnap.dat > experiments/netsci18/rankerrortransp.dat

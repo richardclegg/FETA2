@@ -7,6 +7,7 @@
     <Action>
         <Type>Measure</Type>
         <DegreeDistribution>false</DegreeDistribution>
+        <ToFile>data/bitcoin/bitcoindegrees2009-2010.txt</ToFile>
         <Start>1</Start>
         <Interval>500</Interval>
     </Action>

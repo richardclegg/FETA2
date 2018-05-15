@@ -6,7 +6,7 @@
     </DataFile>
     <Action>
         <Type>Measure</Type>
-        <FinalDegreeDistribution>true</FinalDegreeDistribution>
+        <DegreeDistribution>true</DegreeDistribution>
         <ToFile>experiments/netsci18/enrondegrees.dat</ToFile>
         <Start>932639220</Start>
         <Interval>100000</Interval>

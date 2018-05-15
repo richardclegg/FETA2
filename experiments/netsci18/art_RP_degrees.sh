@@ -2,7 +2,7 @@
 
 script1=experiments/netsci18/rankgrow.xml
 script2=experiments/netsci18/rank_analyse.xml
-script3=experiments/netsci18/rankdegrees1.dat
+script3=experiments/netsci18/rankdegrees-3-10000.dat
 script4=experiments/netsci18/tmp.dat
 script5=experiments/netsci18/grownranktest.tmp
 
@@ -33,4 +33,5 @@ END {
 
 rm $script4
 
-gnuplot experiments/netsci18/RPplot.gnu > experiments/netsci18/RPheatmap.eps
+gnuplot experiments/netsci18/RPplot.gnu > experiments/netsci18/RPheatmap3.eps
+epstopdf experiments/netsci18/RPheatmap3.eps

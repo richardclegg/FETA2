@@ -257,7 +257,21 @@ public class ObjectModel {
         int[] n = getTheNodes(fe, net, noNodes);
         return n;
     }
-    
+
+    //Only true for BA at the moment!!!!!!
+    private double meanLike(Network net) {
+        //net.calcStats();
+        return (net.noNodes_*net.meanInDegSq_)/(net.noLinks_*net.noLinks_);
+    }
+
+    //Only true for BA at the moment!!!!!!
+    public double normLike(Network net, int node) {
+        double norm = meanLike(net);
+        if (norm == 0.0) {
+            return 0.0;
+        } else return calcProbability(node, net, false)/norm;
+    }
+
     /** Normalise all elements */
     public void normalise(Network net) 
     {

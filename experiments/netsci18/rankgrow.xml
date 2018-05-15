@@ -1,6 +1,6 @@
 <FetaOptions>
     <DataFile>
-        <GraphOutput>experiments/netsci18/grownranktest.tmp</GraphOutput>
+        <GraphOutput>experiments/netsci18/rankgrown-3-10000.tmp</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>true</Complex>

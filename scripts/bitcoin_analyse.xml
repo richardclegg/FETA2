@@ -1,0 +1,15 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>data/bitcoin/bitcoin_2009-2011.txt</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>true</Complex>
+    </DataFile>
+    <Action>
+        <Type>Measure</Type>
+        <DegreeDistribution>true</DegreeDistribution>
+        <ToFile>data/bitcoin/bitcoindegrees2009-2010.txt</ToFile>
+        <Start>20090111213025</Start>
+        <Stop>20110000000000</Stop>
+        <Interval>10000000</Interval>
+    </Action>
+</FetaOptions>
