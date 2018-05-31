@@ -1,6 +1,6 @@
 <FetaOptions>
     <DataFile>
-        <GraphOutput>test.dat</GraphOutput>
+        <GraphOutput>experiments/randomtest.dat</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
@@ -19,24 +19,15 @@
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>2.0</Weight>
-        </Element>
-        <Element>
-            <Type>feta.objectmodel.RandomModelElement</Type>
-            <Weight>1.4</Weight>
+            <Weight>1.0</Weight>
         </Element>
     </ObjectModel>
     <ObjectModel>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.DegreePowModelElement</Type>
-            <Power>1.5</Power>
-            <Weight>0.65</Weight>
-        </Element>
-        <Element>
-            <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>1.4</Weight>
+            <Type>feta.objectmodel.RandomModelElement</Type>
+            <Weight>1.0</Weight>
         </Element>
     </ObjectModel>
 </FetaOptions>

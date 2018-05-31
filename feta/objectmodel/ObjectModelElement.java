@@ -32,8 +32,6 @@ public abstract class ObjectModelElement {
     
     /**Calculate the normalisation constant */
     abstract public void calcNormalisation(Network net);
-    
-
         
     /**Calculate the normalisation constant excluding given node */
     abstract public void calcNormalisationFrom(Network net, int [] from);
@@ -58,11 +56,16 @@ public abstract class ObjectModelElement {
         return 0;
     }
     
-    
+    /** Does this model require rank */
+    public boolean useRank() { return false; }
     
     /** Does this model element require triangle counts */
     public boolean useTri()
     {
         return false;
     }
+
+    /** Does this model element require time groups */
+    public boolean useTimeGroup() { return false; }
+
 }

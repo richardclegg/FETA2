@@ -1,6 +1,8 @@
 package feta.objectmodel;
 
 import feta.*;
+
+// import javax.xml.soap.Node;
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -14,6 +16,9 @@ public class ObjectModel {
     public boolean multiply_= false;
 
     private double weightSum_= 0.0;
+
+    // Bypass clever normalisation using nodesets if object model doesn't have any nice
+    public boolean lazyNormalise_ = false;
     
     FetaOptions options_;
     
@@ -61,42 +66,46 @@ public class ObjectModel {
     /** return up to noNodes nodes in network according to model*/
     public int [] getNodes(FetaElement fe, int from, int noNodes, Network net)
     {
-        
         int availableNodeCount= 0;
         double totWeight= 0.0;
         
         // Get nodes to remove because we have links
         int []remove= getRemove(net,from);
-        
-        tempRemove(net,remove);
-        for (NodeSet ns : net.tns_.nodeSets_) {
-            if (ns.members_.size() == 0)
-                continue;
-            Iterator itr = ns.members_.iterator();
-            int node= (Integer)itr.next(); // get typical member
-            ns.probability_= calcProbability(node, net, false);
-            if (ns.probability_ > 0.0) {
-                availableNodeCount+= ns.members_.size();
-                totWeight+= ns.probability_*ns.members_.size();
-            }
-            //System.err.println("Nodes "+ns.noNodes_+" prob "+ns.probability_);
-        }
-        // Add them back
 
-        if (availableNodeCount == 0) {
-            return new int[0];
-        }
-        //System.err.println("Getting "+noNodes+" available "+availableNodeCount);
-        //System.out.println("Calc probability");
-        if (Math.abs(1.0 - totWeight) > 0.000001) {
-            System.err.println("Object model, weight does not total to 1 "+totWeight
-                +" "+from+" "+noNodes);
-            
-            System.exit(-1);
-        }
-        if (availableNodeCount < noNodes) {
-            noNodes= availableNodeCount;
-        }
+        if(!lazyNormalise_) {
+
+            tempRemove(net,remove);
+            for (NodeSet ns : net.tns_.nodeSets_) {
+                //System.out.println(ns.members_);
+                if (ns.members_.size() == 0)
+                    continue;
+                Iterator itr = ns.members_.iterator();
+                int node= (Integer)itr.next(); // get typical member
+                ns.probability_= calcProbability(node, net, false);
+                if (ns.probability_ > 0.0) {
+                    availableNodeCount+= ns.members_.size();
+                    totWeight+= ns.probability_*ns.members_.size();
+                }
+                //System.err.println("Nodes "+ns.noNodes_+" prob "+ns.probability_);
+            }
+            // Add them back
+
+            if (availableNodeCount == 0) {
+                return new int[0];
+            }
+            //System.err.println("Getting "+noNodes+" available "+availableNodeCount);
+            //System.out.println("Calc probability");
+            if (Math.abs(1.0 - totWeight) > 0.000001) {
+                System.err.println("Object model, weight does not total to 1 "+totWeight
+                    +" "+from+" "+noNodes+" "+net.noNodes_);
+
+                System.exit(-1);
+            }
+            if (availableNodeCount < noNodes) {
+                noNodes= availableNodeCount;
+            }
+
+
         int []n= getTheNodes(fe,net, noNodes);
 		
         // ADd back removed members
@@ -105,25 +114,37 @@ public class ObjectModel {
             ns.members_.add((Integer)remove[i]);
         }
         return n;
+        }
+        return getNodesLazy(fe, from, noNodes, net);
+
     }
     
     private int []getTheNodes(FetaElement fe,Network net, int noNodes)
     {
         int []nodes= new int[noNodes];
+        int[] apartFrom = new int[noNodes];
+        Arrays.fill(apartFrom,-1);
         int n;
         double totProb=1.0;
         double probUsed=0.0;
         for (int i= 0; i < noNodes; i++) {
             while(true) {
-                n= getReadiedNode(net);
-                int j;
-                for (j= 0; j < i; j++) {
-                    if (n == nodes[j]) {
+                n= getReadiedNode(net, apartFrom);
+                apartFrom[i] = n;
+                if(true) {
+                    int j = 0;
+                    for (j = 0; j < i; j++) {
+                        if (n == nodes[j]) {
+                            break;
+                        }
+                    }
+                    if (j == i) {
+                        nodes[i] = n;
                         break;
                     }
                 }
-                if (j == i) {
-                    nodes[i]= n;
+                else {
+                    nodes[i] = n;
                     break;
                 }
            }
@@ -135,8 +156,12 @@ public class ObjectModel {
         return nodes;
     }
     
-    private int getReadiedNode(Network net)
+    private int getReadiedNode(Network net, int[] apartFrom)
     {
+        if(lazyNormalise_) {
+            int node = getReadiedNodeLazy(net, apartFrom);
+            return node;
+        }
         double weightSoFar= 0.0;
         NodeSet lns= null;
         double r= Math.random();
@@ -155,7 +180,98 @@ public class ObjectModel {
         int n= (int)(Math.random()*lns.members_.size());
         return (Integer)lns.members_.toArray()[n];
     }
-    
+
+    /** getReadiedNode but lazier */
+    public int getReadiedNodeLazy(Network net, int[] apartFrom)
+    {
+        ArrayList <Integer> nodeList = new ArrayList<Integer>();
+        for (int j = 0; j< net.noNodes_; j++) {
+            nodeList.add(j);
+        }
+        //System.out.println(nodeList);
+        // Remove nodes which have already been chosen in this iteration
+        Arrays.sort(apartFrom);
+        int numChosen = 0;
+        for (int k = apartFrom.length - 1; k >= 0; k--) {
+            if(apartFrom[k]>= 0) {
+                nodeList.remove(apartFrom[k]);
+                numChosen++;
+            }
+        }
+
+        //System.out.println(nodeList);
+
+        double weightSoFar = 0.0;
+        double r = Math.random();
+        normaliseFrom(net, Arrays.copyOfRange(apartFrom, apartFrom.length - numChosen, apartFrom.length));
+        int i;
+        // Check that I've done the right normalisation.
+        if (net.noNodes_< 20 )
+        {
+            double pcheck = 0.0;
+            for (int l = 0; l < nodeList.size(); l++) {
+                pcheck += calcProbability(nodeList.get(l), net, false);
+            }
+            if (Math.abs(pcheck - 1) > 0.001) {
+                System.err.println(" Eek! Probabilities not normalised");
+                System.exit(-1);
+            }
+        }
+        for( i = 0; i < nodeList.size(); i++) {
+            double p = calcProbability(nodeList.get(i), net, false);
+            if(p == 0)
+                continue;
+            weightSoFar+= p;
+            if(weightSoFar > r)
+                break;
+        }
+        return nodeList.get(i);
+    }
+
+    /** Alternative routine for lazily getting nodes without nodesets */
+
+    public int [] getNodesLazy(FetaElement fe, int from, int noNodes, Network net)
+    {
+        // Are there actually any nodes available to attach to?
+        int availableNodeCount= 0;
+        double totWeight= 0.0;
+
+        // If we've had no trouble growing network size to 100, then we can probably stop checking this.
+        if(net.noNodes_ < 100) {
+            for (int i = 0; i < net.noNodes_; i++) {
+                double probability_ = calcProbability(i, net, true);
+                if (probability_ > 0.0) {
+                    availableNodeCount++;
+                    totWeight += probability_;
+                }
+            }
+            if (Math.abs(totWeight - 1.0) > 0.00001) {
+                System.err.println("Object model, weight " + totWeight + " does not total to 1 " + net.noNodes_);
+                System.exit(-1);
+            }
+            if (availableNodeCount < noNodes) {
+                noNodes = availableNodeCount;
+            }
+        }
+
+        int[] n = getTheNodes(fe, net, noNodes);
+        return n;
+    }
+
+    //Only true for BA at the moment!!!!!!
+    private double meanLike(Network net) {
+        //net.calcStats();
+        return (net.noNodes_*net.meanInDegSq_)/(net.noLinks_*net.noLinks_);
+    }
+
+    //Only true for BA at the moment!!!!!!
+    public double normLike(Network net, int node) {
+        double norm = meanLike(net);
+        if (norm == 0.0) {
+            return 0.0;
+        } else return calcProbability(node, net, false)/norm;
+    }
+
     /** Normalise all elements */
     public void normalise(Network net) 
     {
@@ -226,7 +342,7 @@ public class ObjectModel {
         }
         return prob/weightSum_;
     }
-    
+
     /** This is unnormalised */
     private double calcProbabilityMultiplicative(int nodeNo, Network net,
         boolean normalise) {

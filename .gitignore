@@ -4,5 +4,26 @@
 *.jar
 *.war
 *.ear
+*.iml
+*.dat
+*.pdf
+*.eps
+*.aux
+*.log
+*.tex
+*.gnu
+*.sty
+*.txt
+*.sh
+*.feta
+*.dvi
+
 #docs dir
 docs
+out
+classes
+.idea
+bitcoin
+Mathematics__Betweenness_centrality
+experiments
+ipython-in-depth

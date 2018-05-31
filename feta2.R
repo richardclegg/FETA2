@@ -126,9 +126,10 @@ readfile.fetamodel<-function(dataFiles)
    for (d in dataFiles) {
       if (flag == 0) {
          flag <-1
-         input.data<-read.table(d,col.names=
+         input.data<-read.table(d)
+         colnames(input.data) <-
             c("nodeid","choiceid","chosen","batchsize",
-           "nonodes", "degcount","tricount","hotcount"))
+           "nonodes", "degcount","tricount","hotcount")
       } else {
          input.data<-rbind(input.data,read.table(d))
       }

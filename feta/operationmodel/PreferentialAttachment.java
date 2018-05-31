@@ -11,7 +11,7 @@ import rgc.xmlparse.*;
  */
 public class PreferentialAttachment extends OperationModel {
     
-    private int addNodes_= 3;
+    private int addNodes_= 3; //initial degree of each added node NOT number of nodes to add
     
     public PreferentialAttachment() 
     {
@@ -38,7 +38,7 @@ public class PreferentialAttachment extends OperationModel {
     }
     
     
-    /** Parse passed in XML */
+    /** Parse passed in XML reading initial degree for node added */
     public void parseXML(Node node) throws SAXException {
         try {
             addNodes_= ReadXMLUtils.parseSingleInt(node, "AddNodes", "OperationModel", true);

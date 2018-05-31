@@ -53,12 +53,15 @@ public class FetaOptions {
     public boolean ignoreDuplicates_= false; // If multiple links disregard first
     public boolean ignoreSelfLinks_= true;
     public boolean splitRfile_= false; // Split R file into many files
+    public int timeGroupSize_= 1000;
     
     // Options in action tag
     public int fetaAction_= ACTION_MEASURE;
     public int actionInterval_= 1;   // Interval for action
     public long actionStartTime_= 0;  // Start time for action
     public long actionStopTime_= Long.MAX_VALUE;   // Stop time for action
+    public boolean measureDegDist_= false;
+    public String degDistToFile_= null;
     public int maxLinks_= Integer.MAX_VALUE;
     public int maxNodes_= Integer.MAX_VALUE;
     
@@ -290,6 +293,16 @@ public class FetaOptions {
             throw e;
         } catch (XMLNoTagException e) {
         }
+
+        try {
+            timeGroupSize_= ReadXMLUtils.parseSingleInt
+                    (node, "TimeGroupSize", "DataFile", true);
+            ReadXMLUtils.removeNode(node,"TimeGroupSize", "DataFile");
+        } catch (SAXException e) {
+            throw e;
+        } catch (XMLNoTagException e) {
+        }
+
         checkUnparsed(node,"DataFile");    
     }
     
@@ -391,6 +404,25 @@ public class FetaOptions {
         try {
             actionStopTime_= ReadXMLUtils.parseSingleLong(node, "Stop", "Action", true);
             ReadXMLUtils.removeNode(node,"Stop","Action");
+        } catch (SAXException e) {
+            throw e;
+        } catch (XMLNoTagException e) {
+        }
+
+        //Final degree distribution?
+        try {
+            measureDegDist_= ReadXMLUtils.parseSingleBool(node, "DegreeDistribution", "Action", true);
+            ReadXMLUtils.removeNode(node,"DegreeDistribution","Action");
+        } catch (SAXException e) {
+            throw e;
+        } catch (XMLNoTagException e) {
+        }
+
+        //Write degree distribution to file
+
+        try {
+            degDistToFile_= ReadXMLUtils.parseSingleString(node, "ToFile", "Action", true);
+            ReadXMLUtils.removeNode(node,"ToFile","Action");
         } catch (SAXException e) {
             throw e;
         } catch (XMLNoTagException e) {
@@ -501,6 +533,16 @@ public class FetaOptions {
             // Get multiply tag
             om.multiply_= ReadXMLUtils.parseSingleBool(node, "Multiply", "ObjectModel", true);
                 ReadXMLUtils.removeNode(node,"Multiply","ObjectModel");
+        } catch (SAXException e) {
+            throw e;
+        } catch (XMLNoTagException e) {
+        }
+        try {
+            om.lazyNormalise_ = ReadXMLUtils.parseSingleBool(node, "LazyNormalise", "ObjectModel", true);
+            ReadXMLUtils.removeNode(node, "LazyNormalise", "ObjectModel");
+            if (om.lazyNormalise_ == true) {
+                complexNetwork_ = true;
+            }
         } catch (SAXException e) {
             throw e;
         } catch (XMLNoTagException e) {

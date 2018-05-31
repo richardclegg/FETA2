@@ -1,11 +1,13 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>scripts/simple_test_graph.dat</GraphInput>
+        <GraphInput>experiments/netsci18/BAgrown.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
     </DataFile>
     <Action>
-        <Type>Measure</Type>  
-        <Interval>1</Interval>
+        <Type>Measure</Type>
+        <DegreeDistribution>false</DegreeDistribution>
+        <Start>1</Start>
+        <Interval>10</Interval>
     </Action>
 </FetaOptions>

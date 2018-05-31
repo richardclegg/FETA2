@@ -12,6 +12,8 @@ public class TrackNodeSet {
     boolean useOutDegree_= false;
     boolean useRecent_= false;
     boolean useTri_= false;
+    boolean useRank_ = false;
+    boolean useTimeGroup_ = false;
     
     HashMap <Integer, NodeSet> nodeMap_;
     HashMap <NodeProperties, NodeSet> propertyMap_;
@@ -42,6 +44,11 @@ public class TrackNodeSet {
                 useRecent_= true;
             if (ome.useTri())
                 useTri_= true;
+            if (ome.useRank())
+                useRank_= true;
+            if (ome.useTimeGroup())
+                useTimeGroup_ = true;
+
         }   
     }
     
@@ -132,11 +139,13 @@ public class TrackNodeSet {
         int outdegree= 0;
         int recent= 0;
         int tri= 0;
+        int rank = 0;
+        int timegroup = 0;
         // Only one node at a time has each recent value so reuse
         if (useRecent_) {
             recent= net.getRecentPos(nodeNo);
             if (recent > 0) {
-                return new NodeProperties(indegree,outdegree,recent,tri);
+                return new NodeProperties(indegree,outdegree,recent,tri,rank,timegroup);
             }
         } 
         if (useInDegree_) {
@@ -149,6 +158,14 @@ public class TrackNodeSet {
         if (useTri_) {
             tri= net.triCount_.get(nodeNo);
         }
-        return new NodeProperties(indegree,outdegree,recent,tri);
+
+        if (useRank_) {
+            rank = nodeNo + 1;
+        }
+
+        if (useTimeGroup_) {
+            timegroup = net.timeGroup(nodeNo);
+        }
+        return new NodeProperties(indegree,outdegree,recent,tri,rank,timegroup);
     }
 }

@@ -186,11 +186,11 @@ public class FetaModel {
             options_.objectModels_[FetaElement.OPERATION_ADD_NODE] == null ||
             (options_.useCliques_ &&
             options_.objectModels_[FetaElement.OPERATION_ADD_CLIQUE] == null)) {
-            throw new IOException("Must specific all models in XML");
+            throw new IOException("Must specify all models in XML");
         }
     }
     
-    /** Parse the remainging graph according to FETA rules */
+    /** Parse the remaining graph according to FETA rules */
     public FetaNetwork parseRemainingGraph(ArrayList<LinkTimeElement> links,
         Likelihood like) throws IOException
     {
