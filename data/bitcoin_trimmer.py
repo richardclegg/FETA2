@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 yearfrom = "2009"
-yearto = "2011"
+yearto = "2012"
 
 file1 = 'data/bitcoin/bitcoin_ordered.txt'
 file2 = 'data/bitcoin/bitcoin_'+yearfrom+'-'+yearto+'.txt'
