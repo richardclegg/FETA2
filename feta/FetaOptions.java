@@ -53,6 +53,7 @@ public class FetaOptions {
     public boolean ignoreDuplicates_= false; // If multiple links disregard first
     public boolean ignoreSelfLinks_= true;
     public boolean splitRfile_= false; // Split R file into many files
+    public int timeGroupSize_= 1000;
     
     // Options in action tag
     public int fetaAction_= ACTION_MEASURE;
@@ -292,6 +293,16 @@ public class FetaOptions {
             throw e;
         } catch (XMLNoTagException e) {
         }
+
+        try {
+            timeGroupSize_= ReadXMLUtils.parseSingleInt
+                    (node, "TimeGroupSize", "DataFile", true);
+            ReadXMLUtils.removeNode(node,"TimeGroupSize", "DataFile");
+        } catch (SAXException e) {
+            throw e;
+        } catch (XMLNoTagException e) {
+        }
+
         checkUnparsed(node,"DataFile");    
     }
     

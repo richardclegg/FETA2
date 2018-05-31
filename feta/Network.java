@@ -107,6 +107,7 @@ public class Network {
         directedNetwork_= opt.directedNetwork_;
         ignoreDuplicates_= opt.ignoreDuplicates_;
         ignoreSelfLinks_= opt.ignoreSelfLinks_;
+        timeGroupInterval_=opt.timeGroupSize_;
         if (opt.fetaAction_ == FetaOptions.ACTION_MEASURE) {
             nextMeasureTime_= opt.actionStartTime_;
             interval_= opt.actionInterval_;
