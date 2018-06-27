@@ -11,7 +11,20 @@ facebook.dat -- data derived from Facebook likes data
 
 Full original data at http://konect.uni-koblenz.de/networks/facebook-wosn-wall
 
+ucla_net.txt
 
+UCLA AS level internet topology -- format
+AS1 AS2 timestamp
+
+timestamp is timestamp at which link was first observed (unix epoch)
+
+route_net.txt
+routeviews internet topology -- format
+AS1 AS2 timestamp
+
+timestamp is timestamp at which link was first observed (unknown -- Naomi please try to figure this out).
+
+Described in http://www.richardclegg.org/node/49
 
 
 
