@@ -1,0 +1,14 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>data/stackex/sx_art_rank_nodup.dat</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>true</Complex>
+    </DataFile>
+    <Action>
+        <Type>Measure</Type>
+        <DegreeDistribution>true</DegreeDistribution>
+        <ToFile>data/stackex/sx_art_rank_degrees.txt</ToFile>
+        <Start>1072889100</Start>
+        <Interval>30000</Interval>
+    </Action>
+</FetaOptions>

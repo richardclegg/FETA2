@@ -1,23 +1,24 @@
 <FetaOptions>
     <DataFile>
-        <GraphOutput>test.dat</GraphOutput>
-        <GraphInput>scripts/simple_start_graph.dat</GraphInput>
+        <GraphInput>data/ASdatasets/ucla.txt</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
     </DataFile>
     <Action>
-        <Type>Grow</Type>
-        <Start>10</Start>
+        <Type>Likelihood</Type>
+        <Interval>1</Interval>
+        <Start>1072889100</Start>
     </Action>
     <OperationModel>
-        <Cliques>false</Cliques>
-        <Type>feta.operationmodel.PreferentialAttachment</Type>
-        <AddNodes>3</AddNodes>
-        <MaxNodes>100000</MaxNodes>
     </OperationModel>
     <ObjectModel>
         <Entity>Link</Entity>
         <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.RankPreferenceElement</Type>
+            <Power>0.5</Power>
+            <Weight>0.0</Weight>
+        </Element>
         <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
             <Weight>1.0</Weight>
@@ -27,8 +28,13 @@
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
+            <Type>feta.objectmodel.RankPreferenceElement</Type>
+            <Power>0.5</Power>
+            <Weight>0.61</Weight>
+        </Element>
+        <Element>
             <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>1.0</Weight>
+            <Weight>.39</Weight>
         </Element>
     </ObjectModel>
 </FetaOptions>

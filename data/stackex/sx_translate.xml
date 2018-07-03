@@ -1,0 +1,40 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>data/stackex/sx_no_dup.txt</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>true</Complex>
+        <IgnoreDuplicates>false</IgnoreDuplicates>
+        <FetaOutput>data/stackex/sx.feta</FetaOutput>
+        <FetaFormatWrite>ASCII</FetaFormatWrite>
+    </DataFile>
+    <Action>
+        <Type>Translate</Type>
+        <Start>1</Start>
+    </Action>
+    <!--    <Likelihood>
+            <XVProp>0.25</XVProp>
+            <CalibrationProp>0.0005</CalibrationProp>
+        </Likelihood>-->
+    <OperationModel>
+        <Cliques>false</Cliques>
+        <Type>feta.operationmodel.FromFile</Type>
+        <FileName>data/stackex/sx.feta</FileName>
+        <FetaFormat>ASCII</FetaFormat>
+    </OperationModel>
+    <ObjectModel>
+        <Entity>Link</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.DegreeModelElement</Type>
+            <Weight>0.5</Weight>
+        </Element>
+    </ObjectModel>
+    <ObjectModel>
+        <Entity>Node</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.DegreeModelElement</Type>
+            <Weight>0.5</Weight>
+        </Element>
+    </ObjectModel>
+</FetaOptions>

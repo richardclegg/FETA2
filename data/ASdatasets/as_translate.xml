@@ -1,0 +1,40 @@
+<FetaOptions>
+    <DataFile>
+        <GraphInput>data/ASdatasets/route.txt</GraphInput>
+        <FormatRead>NNT</FormatRead>
+        <Complex>true</Complex>
+        <IgnoreDuplicates>false</IgnoreDuplicates>
+        <FetaOutput>data/ASdatasets/route.feta</FetaOutput>
+        <FetaFormatWrite>ASCII</FetaFormatWrite>
+    </DataFile>
+    <Action>
+        <Type>Translate</Type>
+        <Start>19370880</Start>
+    </Action>
+    <!--    <Likelihood>
+            <XVProp>0.25</XVProp>
+            <CalibrationProp>0.0005</CalibrationProp>
+        </Likelihood>-->
+    <OperationModel>
+        <Cliques>false</Cliques>
+        <Type>feta.operationmodel.FromFile</Type>
+        <FileName>data/bitcoin/bitcoin_2009-2011.feta</FileName>
+        <FetaFormat>ASCII</FetaFormat>
+    </OperationModel>
+    <ObjectModel>
+        <Entity>Link</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.DegreeModelElement</Type>
+            <Weight>0.5</Weight>
+        </Element>
+    </ObjectModel>
+    <ObjectModel>
+        <Entity>Node</Entity>
+        <Multiply>false</Multiply>
+        <Element>
+            <Type>feta.objectmodel.DegreeModelElement</Type>
+            <Weight>0.5</Weight>
+        </Element>
+    </ObjectModel>
+</FetaOptions>

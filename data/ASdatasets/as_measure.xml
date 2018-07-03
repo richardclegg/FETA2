@@ -1,14 +1,14 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>experiments/netsci18/grownNetDatasets/random.dat</GraphInput>
+        <GraphInput>data/ASdatasets/route.txt</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
     </DataFile>
     <Action>
         <Type>Measure</Type>
         <DegreeDistribution>true</DegreeDistribution>
-        <ToFile>experiments/netsci18/stat_ts/randomdegrees.dat</ToFile>
-        <Start>1</Start>
-        <Interval>100</Interval>
+        <ToFile>data/ASdatasets/route_real_degrees.txt</ToFile>
+        <Start>19370880</Start>
+        <Interval>30000</Interval>
     </Action>
 </FetaOptions>

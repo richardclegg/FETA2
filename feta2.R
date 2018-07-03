@@ -3,6 +3,8 @@ fetamodel<-function(input.data,
         nullOffset= TRUE, 
         deg= TRUE, 
         rand= TRUE,
+        rankpref=FALSE,
+        rankalpha=0.5,
         silent=FALSE,
         pfp= FALSE, 
         antitri=FALSE, 
@@ -22,6 +24,9 @@ fetamodel<-function(input.data,
             cat("Data read!\n");
         }
     } else if (class(input.data) == "data.frame") {
+      names(input.data) <-
+        c("nodeid","choiceid","chosen","batchsize",
+          "nonodes", "degcount","tricount","hotcount")
         if (!silent) {
             cat("Data accepted!\n");
         }
@@ -34,6 +39,8 @@ fetamodel<-function(input.data,
         nullOffset=nullOffset, 
         deg= deg, 
         rand= rand,
+        rankpref=rankpref,
+        rankalpha=rankalpha,
         silent= silent,
         pfp= pfp, 
         antitri= antitri, 
@@ -138,7 +145,6 @@ readfile.fetamodel<-function(dataFiles)
 }
 
 
-
 linearfit.fetamodel<-function (x, ...)
 {
     if (class(x) != "fetamodel") {
@@ -232,7 +238,13 @@ linearfit.fetamodel<-function (x, ...)
         myForm<-paste(myForm,"+ doublecol")
         scount<-scount+1
     }  
-
+    if (x$rankpref) {
+      rankcol <- (x$input.data$choiceid + 1)^(-x$rankalpha);
+      rankcol <- normByLevels(rankcol, x$input.data$choiceid)
+      rankcol <- rankcol*x$input.data$batchsize
+      myForm<-paste(myForm,"+ rankcol")
+      scount <- scount+1
+    }
     if(!x$silent) {
         cat ("Now fitting ",myForm," with ",scount," variables\n")
     }
