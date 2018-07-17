@@ -9,6 +9,6 @@
         <DegreeDistribution>true</DegreeDistribution>
         <ToFile>data/ASdatasets/route_real_degrees.txt</ToFile>
         <Start>19370880</Start>
-        <Interval>30000</Interval>
+        <Interval>3000</Interval>
     </Action>
 </FetaOptions>

@@ -1,15 +1,15 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>data/ASdatasets/route.txt</GraphInput>
+        <GraphInput>data/ASdatasets/ucla.txt</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>true</Complex>
         <IgnoreDuplicates>false</IgnoreDuplicates>
-        <FetaOutput>data/ASdatasets/route.feta</FetaOutput>
+        <FetaOutput>data/ASdatasets/ucla.feta</FetaOutput>
         <FetaFormatWrite>ASCII</FetaFormatWrite>
     </DataFile>
     <Action>
         <Type>Translate</Type>
-        <Start>19370880</Start>
+        <Start>1072889100</Start>
     </Action>
     <!--    <Likelihood>
             <XVProp>0.25</XVProp>

@@ -15,26 +15,26 @@
         <Entity>Link</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.RankPreferenceElement</Type>
-            <Power>0.5</Power>
-            <Weight>0.0</Weight>
+            <Type>feta.objectmodel.PFPModelElement</Type>
+            <d>0.048</d>
+            <Weight>0.99</Weight>
         </Element>
         <Element>
-            <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>1.0</Weight>
+            <Type>feta.objectmodel.RandomModelElement</Type>
+            <Weight>.01</Weight>
         </Element>
     </ObjectModel>
     <ObjectModel>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.RankPreferenceElement</Type>
-            <Power>0.5</Power>
-            <Weight>0.61</Weight>
+            <Type>feta.objectmodel.PFPModelElement</Type>
+            <d>0.048</d>
+            <Weight>0.99</Weight>
         </Element>
         <Element>
-            <Type>feta.objectmodel.DegreeModelElement</Type>
-            <Weight>.39</Weight>
+            <Type>feta.objectmodel.RandomModelElement</Type>
+            <Weight>.01</Weight>
         </Element>
     </ObjectModel>
 </FetaOptions>
