@@ -58,11 +58,19 @@ public abstract class ObjectModelElement {
         return 0;
     }
     
-    
+    /** Does this model require rank */
+    public boolean useRank() { return false; }
     
     /** Does this model element require triangle counts */
     public boolean useTri()
     {
         return false;
     }
+
+    /** Does this model element require time groups */
+    public boolean useTimeGroup() { return false; }
+
+    /** Does this model come with a prescribed normalisation calculation? */
+    public boolean usePrescribedNormalisation() { return true; }
+
 }

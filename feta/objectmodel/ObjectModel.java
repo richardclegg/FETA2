@@ -70,6 +70,7 @@ public class ObjectModel {
         
         tempRemove(net,remove);
         for (NodeSet ns : net.tns_.nodeSets_) {
+            //System.out.println(ns.members_);
             if (ns.members_.size() == 0)
                 continue;
             Iterator itr = ns.members_.iterator();

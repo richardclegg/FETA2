@@ -1,6 +1,6 @@
-﻿<FetaOptions>
+<FetaOptions>
     <DataFile>
-        <GraphOutput>experiments/degtri_ex.dat</GraphOutput>
+        <GraphOutput>experiments/netsci18/degtrigrown.dat</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
@@ -13,15 +13,14 @@
         <Cliques>false</Cliques>
         <Type>feta.operationmodel.PreferentialAttachment</Type>
         <MaxNodes>10000</MaxNodes>
+        <AddNodes>3</AddNodes>
     </OperationModel>
     <ObjectModel>
         <Entity>Link</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.DegreeTrichotomyElement</Type>
+            <Type>feta.objectmodel.DegreeModelElement</Type>
             <Weight>1.0</Weight>
-            <LowerDegree>5</LowerDegree>
-            <UpperDegree>25</UpperDegree>
         </Element>
     </ObjectModel>
     <ObjectModel>
@@ -29,9 +28,9 @@
         <Multiply>false</Multiply>
         <Element>
             <Type>feta.objectmodel.DegreeTrichotomyElement</Type>
+            <LowerDegree>1</LowerDegree>
+            <UpperDegree>50</UpperDegree>
             <Weight>1.0</Weight>
-            <LowerDegree>100</LowerDegree>
-            <UpperDegree>101</UpperDegree>
         </Element>
     </ObjectModel>
 </FetaOptions>

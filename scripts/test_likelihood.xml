@@ -1,6 +1,6 @@
 <FetaOptions>
     <DataFile>
-        <GraphInput>scripts/simple_test_graph.dat</GraphInput>
+        <GraphInput>experiments/netsci18/rankBAtmp.tmp</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
         <FetaOutput>fetafile.feta</FetaOutput>

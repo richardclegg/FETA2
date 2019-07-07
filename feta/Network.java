@@ -49,6 +49,11 @@ public class Network {
     public long nextMeasureTime_= -1;
     // Interval between measurements
     private int interval_= 1;
+    // Save final degree distribution?
+    private boolean finalDegDist_;
+    // Location of final degree distribution to save
+    private String degDistFile_;
+    private BufferedWriter outputWriter;
     
     // Set of tracking information for calculating probabilities
     public TrackNodeSet tns_= null;
@@ -90,6 +95,8 @@ public class Network {
     // List of links most recently picked
     public int []hotNodes_= null;
     public int hotPos_;  // Implement as ring buffer
+
+    public int timeGroupInterval_ = 200; // size of each time group
     
     public int maxHotNodes_= 0;
     public boolean trackHot_= false;
@@ -103,6 +110,8 @@ public class Network {
         if (opt.fetaAction_ == FetaOptions.ACTION_MEASURE) {
             nextMeasureTime_= opt.actionStartTime_;
             interval_= opt.actionInterval_;
+            finalDegDist_= opt.finalDegDist_;
+            degDistFile_ = opt.degDistToFile_;
             //System.out.println("Measure "+nextMeasureTime_+" "+interval_);
         } else {
             nextMeasureTime_= -1;
@@ -609,7 +618,7 @@ public class Network {
     // Manipulate arrays to add a link
     // without adding it to linktime element array
     private void addSimpleLink(int node1, int node2, long time) 
-    {
+    {   //Change the appropriate data structures for node 1 after the addition of a new link
         int[] oldLinks= outLinks_.get(node1);
         long[] oldTimes= outLinksTime_.get(node1);
         int[] newLinks= new int[oldLinks.length+1];
@@ -624,9 +633,11 @@ public class Network {
         
         newLinks[oldLinks.length]= node2;
         newTimes[oldLinks.length]= time;
+        //Add the new outlinks to node1's outlink array
         outLinks_.set(node1,newLinks);
         outLinksTime_.set(node1,newTimes);
-        
+
+        //Do exactly the same for node2
         oldLinks= inLinks_.get(node2);
         oldTimes= inLinksTime_.get(node2);
         newLinks= new int[oldLinks.length+1];
@@ -637,7 +648,10 @@ public class Network {
         newTimes[oldLinks.length]= time;
         inLinks_.set(node2,newLinks);
         inLinksTime_.set(node2,newTimes);
+
         noLinks_++;
+
+        //Node tracking options
         if (tns_ != null) {
             if (trackTri_) {
                 while (node1 >= triCount_.size()) {
@@ -890,10 +904,22 @@ public class Network {
         if (firstRunPrint_) {
             System.out.println("#time Nodes links maxInDeg maxOutDeg CC "+
                 "SingIn SingOut DoubIn DoubOut InDegSq OutDegSq InAssort OutAssort");
+
+            if(finalDegDist_) {
+                try {
+                    outputWriter = new BufferedWriter(new FileWriter(degDistFile_));
+                } catch (IOException e){
+                    System.err.println("Problem writing degree distribution to file: invalid file input");
+                }
+            }
+
             firstRunPrint_= false;
         }
         if (changed) {
             calcStats();
+            if(finalDegDist_) {
+                printDegDist(outputWriter);
+            }
         }
         System.out.println(nextMeasureTime_+" "+noNodes_+" "+ noLinks_+
             " "+largestInDegree_+" "+largestOutDegree_+" "+ clusterCoeff_+
@@ -901,7 +927,24 @@ public class Network {
             " "+doubletonInCount_+" "+doubletonOutCount_+
             " "+meanInDegSq_+" "+meanOutDegSq_+" "+assortIn_+" "+assortOut_);
     }
-    
+
+    public void printDegDist(BufferedWriter writer) {
+        try {
+            for(int i = 1; i < inDegreeDistrib_.length; i++) {
+                writer.write(inDegreeDistrib_[i] + " ");
+                writer.flush();
+            }
+            writer.flush();
+            writer.newLine();
+    } catch (IOException e) {
+            System.err.println("File writer error");
+            System.exit(-1);
+        }
+    }
+
+
+
+    //n.b. triangle count of node i is number of pairs of neighbours of i that are themselves neighbours
     private int triCount(int node)
     {
         int []outLinks= outLinks_.get(node);
@@ -924,6 +967,12 @@ public class Network {
             }
         }
         return triCount;
+    }
+
+    /** In which time group is a given node?*/
+    public int timeGroup(int node){
+        int tg = node/timeGroupInterval_ + 1;
+        return tg;
     }
     
     /** Calculate all network statistics*/
@@ -983,7 +1032,7 @@ public class Network {
         }
         if (noLinks_ > 0) {
             clusterCoeff_/= noNodes_;
-            meanOutDegSq_/= noLinks_;
+            meanOutDegSq_/= noNodes_;
             meanInDegSq_/= noLinks_;
             assortIn_= calcAssort(largestInDegree_,true);
             if (directedNetwork_) {

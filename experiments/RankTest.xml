@@ -1,6 +1,6 @@
-﻿<FetaOptions>
+<FetaOptions>
     <DataFile>
-        <GraphOutput>experiments/degtri_ex.dat</GraphOutput>
+        <GraphOutput>experiments/tmp/grownrank.tmp</GraphOutput>
         <GraphInput>scripts/simple_start_graph.dat</GraphInput>
         <FormatRead>NNT</FormatRead>
         <Complex>false</Complex>
@@ -13,25 +13,24 @@
         <Cliques>false</Cliques>
         <Type>feta.operationmodel.PreferentialAttachment</Type>
         <MaxNodes>10000</MaxNodes>
+        <AddNodes>1</AddNodes>
     </OperationModel>
     <ObjectModel>
         <Entity>Link</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.DegreeTrichotomyElement</Type>
+            <Type>feta.objectmodel.RankPreferenceElement</Type>
             <Weight>1.0</Weight>
-            <LowerDegree>5</LowerDegree>
-            <UpperDegree>25</UpperDegree>
+            <Power>0.3333333</Power>
         </Element>
     </ObjectModel>
     <ObjectModel>
         <Entity>Node</Entity>
         <Multiply>false</Multiply>
         <Element>
-            <Type>feta.objectmodel.DegreeTrichotomyElement</Type>
+            <Type>feta.objectmodel.RankPreferenceElement</Type>
             <Weight>1.0</Weight>
-            <LowerDegree>100</LowerDegree>
-            <UpperDegree>101</UpperDegree>
+            <Power>0.3333333</Power>
         </Element>
     </ObjectModel>
 </FetaOptions>

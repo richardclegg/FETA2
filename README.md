@@ -6,7 +6,7 @@ FETA2 java based graph analysis software (FETA 3 currently under development)
 To build and run either:
 
 ant jar
-java -jar feta2-1.0.0.jar [script.xml]
+java -jar feta2-1.00.jar [script.xml]
 
 or
 
@@ -38,3 +38,9 @@ FetaCLI is controlled by a single XML document. This .XML controls what FETA is 
         <Type>Measure</Type>
     </Action>
 </FetaOptions>
+
+=====
+
+Documentation
+
+======

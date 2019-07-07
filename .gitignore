@@ -4,5 +4,19 @@
 *.jar
 *.war
 *.ear
+*.iml
+*.dat
+*.pdf
+*.eps
+*.aux
+*.log
+*.tex
+*.gnu
+*.sty
+
+
 #docs dir
 docs
+out
+classes
+.idea
