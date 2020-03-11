@@ -6,11 +6,13 @@ FETA2 java based graph analysis software (FETA 3 currently under development)
 To build and run either:
 
 ant jar
+
 java -jar feta2-1.0.0.jar [script.xml]
 
 or
 
 ant build
+
 java feta.FetaCLI [script.xml]
 
 in the latter case you will need to set up CLASSPATH for java as shown below setting FETAHOME to whereever you placed the source.  After you do this source ~/.bashrc
